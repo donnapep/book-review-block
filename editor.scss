@@ -1,0 +1,15 @@
+/* Editor styles */
+.book-review-block .book-review-block__upload-button.button {
+	margin-right: 5px;
+}
+
+.book-review-block .book-review-block__upload-button.button .dashicon {
+	vertical-align: middle;
+	margin-bottom: 3px;
+}
+
+.book-review-block .book-review-block__rating > span:hover:before,
+.book-review-block .book-review-block__rating > span:hover ~ span:before {
+	content: "\2605";
+	position: absolute;
+}

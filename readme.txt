@@ -28,6 +28,11 @@ OR
 1. Activate the plugin through the *Plugins* menu.
 1. Add the *Book Review* block in the Gutenberg editor.
 
+== Screenshots ==
+
+1. Empty State
+2. Selected State
+
 == Changelog ==
 
 = 1.0.0 =

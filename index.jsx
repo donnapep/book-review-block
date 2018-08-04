@@ -6,26 +6,24 @@ import classnames from 'classnames';
 const { __ } = wp.i18n;
 const {
 	registerBlockType,
-	BlockControls,
-	BlockDescription,
-	ColorPalette,
-	Editable,
-	InspectorControls,
-	MediaUploadButton,
 } = wp.blocks;
 const {
+	Button,
 	Dashicon,
-	FormFileUpload,
-	PanelColor,
-	Placeholder,
 	Toolbar,
 } = wp.components;
-const { mediaUpload } = wp.utils;
+const {
+	BlockControls,
+	InspectorControls,
+	MediaPlaceholder,
+	MediaUpload,
+	PanelColor,
+	RichText,
+} = wp.editor;
 
 /**
  * Internal dependencies
  */
-
 import './editor.scss';
 import './style.scss';
 
@@ -39,8 +37,13 @@ const ratings = [
 
 registerBlockType( 'book-review-block/book-review', {
 	title: 'Book Review',
+	description: 'Add book details such as title, author, publisher and cover image to enhance your review posts.',
 	icon: 'book',
 	category: 'widgets',
+	supports: {
+		anchor: true,
+		multiple: false,
+	},
 	attributes: {
 		alt: {
 			type: 'string',
@@ -115,7 +118,7 @@ registerBlockType( 'book-review-block/book-review', {
 		},
 	},
 
-	edit: ( { attributes, className, focus, setAttributes, setFocus } ) => {
+	edit: ( { attributes, className, isSelected, setAttributes } ) => {
 		const {
 			alt,
 			author,
@@ -133,13 +136,12 @@ registerBlockType( 'book-review-block/book-review', {
 			title,
 			url,
 		} = attributes;
-		const focusedEditable = focus ? focus.editable || 'title' : null;
-		const uploadButtonProps = { isLarge: true };
-		const updateCover = ( { alt, id, url } ) => setAttributes( { alt, id, url } );
-		const updateFocus = field => focusValue => setFocus( { editable: field, ...focusValue } );
+		const setCover = ( { alt, id, url } ) => setAttributes( { alt, id, url } );
 		const updateRating = event => setAttributes( { rating: event.target.dataset.rating } );
-		const updateValue = field => value => setAttributes( { [ field ]: value } );
-		const uploadFromFiles = event => mediaUpload( event.target.files, setAttributes );
+		const updateValue = field => value => {
+			setAttributes( { [ field ]: value } );
+			console.log( 'edit ' + value );
+		}
 
 		return (
 			<div
@@ -149,63 +151,45 @@ registerBlockType( 'book-review-block/book-review', {
 				style={ {
 					backgroundColor: backgroundColor,
 				} }>
-				{ !! focus && (
+				{ isSelected && (
 					<BlockControls key="controls">
 						<Toolbar>
-							<MediaUploadButton
-								buttonProps={ {
-									className: 'components-icon-button components-toolbar__control',
-									'aria-label': __( 'Edit Book Cover' ),
-								} }
-								onSelect={ updateCover }
+							<MediaUpload
+								onSelect={ setCover }
 								type="image"
-								value={ id }>
-								<Dashicon icon="edit" />
-							</MediaUploadButton>
+								value={ id }
+								render={ ( { open } ) => (
+									<Button onClick={ open }>
+										<Dashicon icon="edit" />
+										{ __( 'Edit Book Cover' ) }
+									</Button>
+								) }
+							/>
 						</Toolbar>
 					</BlockControls>
 				) }
 
-				{ focus && (
+				{ isSelected && (
 					<InspectorControls key="inspector">
-						<BlockDescription>
-							<p>{ __( 'Add book details such as title, author, publisher and cover image to enhance your review posts.' ) }</p>
-						</BlockDescription>
-
 						<PanelColor
 							colorValue={ backgroundColor }
-							title={ __( 'Background Color' ) }>
-							<ColorPalette
-								onChange={ updateValue( 'backgroundColor' ) }
-								value={ backgroundColor }
-							/>
-						</PanelColor>
+							onChange={ updateValue( 'backgroundColor' ) }
+							title={ __( 'Background Color' ) }
+						/>
 					</InspectorControls>
 				) }
 
 				{ ! url && (
-					<Placeholder
+					<MediaPlaceholder
+						accept="image/*"
 						icon="format-image"
 						instructions={ __( 'Upload or insert book cover from media library' ) }
-						key="placeholder"
-						label={ __( 'Book Cover' ) }>
-
-						<FormFileUpload
-							accept="image/*"
-							className="book-review-block__upload-button"
-							onChange={ uploadFromFiles }
-							isLarge>
-							{ __( 'Upload' ) }
-						</FormFileUpload>
-
-						<MediaUploadButton
-							buttonProps={ uploadButtonProps }
-							onSelect={ updateCover }
-							type="image">
-							{ __( 'Insert from Media Library' ) }
-						</MediaUploadButton>
-
-					</Placeholder>
+						labels={ {
+							title: __( 'Book Cover' ),
+							name: __( 'an image' ),
+						} }
+						onSelect={ setCover }
+						type="image" />
 				) }
 
 				{ !! url && (
@@ -213,88 +197,69 @@ registerBlockType( 'book-review-block/book-review', {
 						<img
 							alt={ alt }
 							className="book-review-block__cover"
-							onClick={ setFocus }
 							src={ url } />
 					</div>
 				) }
 
 				<div className="book-review-block__details">
-					<Editable
-						focus={ focusedEditable === 'title' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'title' ) }
-						onFocus={ updateFocus( 'title' ) }
 						placeholder={ __( 'Enter title…' ) }
 						tagName="span"
 						value={ title }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'series' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'series' ) }
-						onFocus={ updateFocus( 'series' ) }
 						placeholder={ __( 'Enter series…' ) }
 						tagName="span"
 						value={ series }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'author' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'author' ) }
-						onFocus={ updateFocus( 'author' ) }
 						placeholder={ __( 'Enter author…' ) }
 						tagName="span"
 						value={ author }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'genre' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'genre' ) }
-						onFocus={ updateFocus( 'genre' ) }
 						placeholder={ __( 'Enter genre…' ) }
 						tagName="span"
 						value={ genre }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'publisher' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'publisher' ) }
-						onFocus={ updateFocus( 'publisher' ) }
 						placeholder={ __( 'Enter publisher…' ) }
 						tagName="span"
 						value={ publisher }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'releaseDate' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'releaseDate' ) }
-						onFocus={ updateFocus( 'releaseDate' ) }
 						placeholder={ __( 'Enter release date…' ) }
 						tagName="span"
 						value={ releaseDate }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'format' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'format' ) }
-						onFocus={ updateFocus( 'format' ) }
 						placeholder={ __( 'Enter format…' ) }
 						tagName="span"
 						value={ format }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'pages' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'pages' ) }
-						onFocus={ updateFocus( 'pages' ) }
 						placeholder={ __( 'Enter pages…' ) }
 						tagName="span"
 						value={ pages }
 						keepPlaceholderOnFocus />
 
-					<Editable
-						focus={ focusedEditable === 'source' ? focus : null }
+					<RichText
 						onChange={ updateValue( 'source' ) }
-						onFocus={ updateFocus( 'source' ) }
 						placeholder={ __( 'Enter source…' ) }
 						tagName="span"
 						value={ source }
@@ -314,11 +279,9 @@ registerBlockType( 'book-review-block/book-review', {
 						) ) }
 					</div>
 
-					<Editable
-						focus={ focusedEditable === 'description' ? focus : null }
+					<RichText
 						multiline="p"
 						onChange={ updateValue( 'description' ) }
-						onFocus={ updateFocus( 'description' ) }
 						placeholder={ __( 'Enter description…' ) }
 						value={ description }
 						wrapperClassName="book-review-block__description"
@@ -352,7 +315,7 @@ registerBlockType( 'book-review-block/book-review', {
 		const styles = {
 			backgroundColor: backgroundColor,
 		};
-
+		console.log( 'save ' + title );
 		return (
 			<div
 				className={ className }

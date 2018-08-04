@@ -3,8 +3,8 @@ Contributors: donnapep
 Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 4.8
-Tested up to: 4.9.1
-Stable tag: 1.0.0
+Tested up to: 4.9.8
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ A Gutenberg block to add book details and a star rating to a book review post.
 
 == Description ==
 
-Book Review Block enables you to add details such as title, author, cover photo, a star rating and more to each of your book reviews.
+Book Review Block enables you to add details such as title, author, cover photo, star rating and more to each of your book reviews.
 
 == Installation ==
 
@@ -34,6 +34,10 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.1.0 =
+* Address compatibility issues with Gutenberg.
+* Add drag and drop book cover uploads.
 
 = 1.0.0 =
 * Initial release.

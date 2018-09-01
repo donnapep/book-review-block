@@ -205,63 +205,54 @@ registerBlockType( 'book-review-block/book-review', {
 					<RichText
 						onChange={ updateValue( 'title' ) }
 						placeholder={ __( 'Enter title…' ) }
-						tagName="span"
 						value={ title }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'series' ) }
 						placeholder={ __( 'Enter series…' ) }
-						tagName="span"
 						value={ series }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'author' ) }
 						placeholder={ __( 'Enter author…' ) }
-						tagName="span"
 						value={ author }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'genre' ) }
 						placeholder={ __( 'Enter genre…' ) }
-						tagName="span"
 						value={ genre }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'publisher' ) }
 						placeholder={ __( 'Enter publisher…' ) }
-						tagName="span"
 						value={ publisher }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'releaseDate' ) }
 						placeholder={ __( 'Enter release date…' ) }
-						tagName="span"
 						value={ releaseDate }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'format' ) }
 						placeholder={ __( 'Enter format…' ) }
-						tagName="span"
 						value={ format }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'pages' ) }
 						placeholder={ __( 'Enter pages…' ) }
-						tagName="span"
 						value={ pages }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'source' ) }
 						placeholder={ __( 'Enter source…' ) }
-						tagName="span"
 						value={ source }
 						keepPlaceholderOnFocus />
 

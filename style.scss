@@ -1,5 +1,7 @@
 /* Editor and front-end styles */
 .book-review-block {
+	overflow: hidden;
+
 	&.has-background {
 		padding: 20px 30px;
 	}

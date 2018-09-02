@@ -4,7 +4,7 @@ Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book
 Author URI: https://donnapeplinskie.com
 Requires at least: 4.8
 Tested up to: 4.9.8
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.1.1 =
+* Fix issue with incorrect text saving when backspace key used.
+* Fix book cover extending outside parent element.
 
 = 1.1.0 =
 * Address compatibility issues with Gutenberg.

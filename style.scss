@@ -1,43 +1,45 @@
 /* Editor and front-end styles */
-.book-review-block.has-background {
-	padding: 20px 30px;
-}
+.book-review-block {
+	&.has-background {
+		padding: 20px 30px;
+	}
 
-.book-review-block .book-review-block__cover-wrapper {
-	float: left;
-	margin: 0 1.5em 1.5em 0;
-	max-width: 50%;
-}
+	.book-review-block__cover-wrapper {
+		float: left;
+		margin: 0 1.5em 1.5em 0;
+		max-width: 50%;
+	}
 
-.book-review-block .book-review-block__cover {
-	max-width: 100%;
-	box-shadow: 5px 5px 20px #333;
-}
+	.book-review-block__cover {
+		max-width: 100%;
+		box-shadow: 5px 5px 20px #333;
+	}
 
-.book-review-block .book-review-block__details > span {
-	display: block;
-}
+	.book-review-block__details > span {
+		display: block;
+	}
 
-.book-review-block .book-review-block__rating {
-	unicode-bidi: bidi-override;
-	direction: rtl;
-	text-align: left;
-	margin-bottom: 1em;
-}
+	.book-review-block__rating {
+		unicode-bidi: bidi-override;
+		direction: rtl;
+		text-align: left;
+		margin-bottom: 1em;
+	}
 
-.book-review-block .book-review-block__rating > span {
-	display: inline-block;
-	position: relative;
-	width: 1.0em;
-	color: #EBA845;
-	font-size: 20px;
-}
+	.book-review-block__rating > span {
+		display: inline-block;
+		position: relative;
+		width: 1.0em;
+		color: #EBA845;
+		font-size: 20px;
+	}
 
-.book-review-block .book-review-block__rating > span.on:before {
-	content: "\2605";
-	position: absolute;
-}
+	.book-review-block__rating > span.on:before {
+		content: "\2605";
+		position: absolute;
+	}
 
-.book-review-block .book-review-block__description p:last-child {
-	margin-bottom: 0;
+	.book-review-block__description p:last-child {
+		margin-bottom: 0;
+	}
 }

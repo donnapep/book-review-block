@@ -88,7 +88,7 @@ registerBlockType( 'book-review-block/book-review', {
 			selector: '.book-review-block__publisher',
 		},
 		rating: {
-			type: 'number',
+			type: 'string',
 		},
 		releaseDate: {
 			type: 'array',
@@ -129,7 +129,7 @@ registerBlockType( 'book-review-block/book-review', {
 			id,
 			pages,
 			publisher,
-			rating: currentRating,
+			rating: reviewRating,
 			releaseDate,
 			series,
 			source,
@@ -140,7 +140,6 @@ registerBlockType( 'book-review-block/book-review', {
 		const updateRating = event => setAttributes( { rating: event.target.dataset.rating } );
 		const updateValue = field => value => {
 			setAttributes( { [ field ]: value } );
-			console.log( 'edit ' + value );
 		}
 
 		return (
@@ -261,7 +260,7 @@ registerBlockType( 'book-review-block/book-review', {
 						onClick={ updateRating }>
 						{ ratings.map( ( { rating, title } ) => (
 							<span
-								className={ currentRating && currentRating >= rating ? 'on' : 'off' }
+								className={ reviewRating && rating <= reviewRating ? 'on' : 'off' }
 								data-rating={ rating }
 								key={ rating }
 								title={ title }>
@@ -293,7 +292,7 @@ registerBlockType( 'book-review-block/book-review', {
 			genre = [],
 			pages = [],
 			publisher = [],
-			rating: currentRating,
+			rating: reviewRating,
 			releaseDate = [],
 			series = [],
 			source = [],
@@ -306,7 +305,7 @@ registerBlockType( 'book-review-block/book-review', {
 		const styles = {
 			backgroundColor: backgroundColor,
 		};
-		console.log( 'save ' + title );
+
 		return (
 			<div
 				className={ className }
@@ -330,7 +329,7 @@ registerBlockType( 'book-review-block/book-review', {
 					<div className="book-review-block__rating">
 						{ ratings.map( ( { rating } ) => (
 							<span
-								className={ currentRating && currentRating >= rating ? 'on' : 'off' }
+								className={ reviewRating && rating <= reviewRating ? 'on' : 'off' }
 								data-rating={ rating }
 								key={ rating }>
 								&#9734;

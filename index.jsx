@@ -181,14 +181,14 @@ registerBlockType( 'book-review-block/book-review', {
 				{ ! url && (
 					<MediaPlaceholder
 						accept="image/*"
+						allowedTypes={ [ 'image' ] }
 						icon="format-image"
 						instructions={ __( 'Upload or insert book cover from media library' ) }
 						labels={ {
 							title: __( 'Book Cover' ),
 							name: __( 'an image' ),
 						} }
-						onSelect={ setCover }
-						type="image" />
+						onSelect={ setCover } />
 				) }
 
 				{ !! url && (

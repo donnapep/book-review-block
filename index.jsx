@@ -17,7 +17,7 @@ const {
 	InspectorControls,
 	MediaPlaceholder,
 	MediaUpload,
-	PanelColor,
+	PanelColorSettings,
 	RichText,
 } = wp.editor;
 
@@ -170,10 +170,14 @@ registerBlockType( 'book-review-block/book-review', {
 
 				{ isSelected && (
 					<InspectorControls key="inspector">
-						<PanelColor
-							colorValue={ backgroundColor }
-							onChange={ updateValue( 'backgroundColor' ) }
-							title={ __( 'Background Color' ) }
+						<PanelColorSettings
+							colorSettings={ [
+								{
+									value: backgroundColor && backgroundColor.value,
+									onChange: updateValue( 'backgroundColor' ),
+									label: __( 'Background Color' ),
+								},
+							] }
 						/>
 					</InspectorControls>
 				) }

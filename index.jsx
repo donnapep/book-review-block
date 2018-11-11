@@ -155,7 +155,7 @@ registerBlockType( 'book-review-block/book-review', {
 						<Toolbar>
 							<MediaUpload
 								onSelect={ setCover }
-								type="image"
+								allowedTypes={ [ 'image' ] }
 								value={ id }
 								render={ ( { open } ) => (
 									<Button onClick={ open }>

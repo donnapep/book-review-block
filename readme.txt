@@ -4,7 +4,7 @@ Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book
 Author URI: https://donnapeplinskie.com
 Requires at least: 4.8
 Tested up to: 4.9.8
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.1.3 =
+* Fix: Replace deprecated Gutenberg properties and component.
 
 = 1.1.2 =
 * Fix: Gutenberg 4.0 compatibility.

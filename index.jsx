@@ -17,7 +17,7 @@ const {
 	InspectorControls,
 	MediaPlaceholder,
 	MediaUpload,
-	PanelColor,
+	PanelColorSettings,
 	RichText,
 } = wp.editor;
 
@@ -155,7 +155,7 @@ registerBlockType( 'book-review-block/book-review', {
 						<Toolbar>
 							<MediaUpload
 								onSelect={ setCover }
-								type="image"
+								allowedTypes={ [ 'image' ] }
 								value={ id }
 								render={ ( { open } ) => (
 									<Button onClick={ open }>
@@ -170,10 +170,14 @@ registerBlockType( 'book-review-block/book-review', {
 
 				{ isSelected && (
 					<InspectorControls key="inspector">
-						<PanelColor
-							colorValue={ backgroundColor }
-							onChange={ updateValue( 'backgroundColor' ) }
-							title={ __( 'Background Color' ) }
+						<PanelColorSettings
+							colorSettings={ [
+								{
+									value: backgroundColor && backgroundColor.value,
+									onChange: updateValue( 'backgroundColor' ),
+									label: __( 'Background Color' ),
+								},
+							] }
 						/>
 					</InspectorControls>
 				) }
@@ -181,14 +185,14 @@ registerBlockType( 'book-review-block/book-review', {
 				{ ! url && (
 					<MediaPlaceholder
 						accept="image/*"
+						allowedTypes={ [ 'image' ] }
 						icon="format-image"
 						instructions={ __( 'Upload or insert book cover from media library' ) }
 						labels={ {
 							title: __( 'Book Cover' ),
 							name: __( 'an image' ),
 						} }
-						onSelect={ setCover }
-						type="image" />
+						onSelect={ setCover } />
 				) }
 
 				{ !! url && (

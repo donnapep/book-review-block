@@ -2,6 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
+import { autop } from '@wordpress/autop';
 
 const { __ } = wp.i18n;
 const {
@@ -34,6 +35,9 @@ const ratings = [
 	{ rating: 2, title: 'it was ok' },
 	{ rating: 1, title: 'did not like it' },
 ];
+function isOldVersion( attributes ) {
+	return attributes.details.length !== 0;
+}
 
 registerBlockType( 'book-review-block/book-review', {
 	title: 'Book Review',
@@ -51,18 +55,83 @@ registerBlockType( 'book-review-block/book-review', {
 			selector: 'img',
 			attribute: 'alt',
 		},
+		backgroundColor: {
+			type: 'string',
+		},
+		id: {
+			type: 'number',
+		},
+		book_review_author: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_author',
+		},
+		book_review_cover_url: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_cover_url',
+		},
+		book_review_format: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_format',
+		},
+		book_review_genre: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_genre',
+		},
+		book_review_pages: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_pages',
+		},
+		book_review_publisher: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_publisher',
+		},
+		book_review_rating: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_rating',
+		},
+		book_review_release_date: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_release_date',
+		},
+		book_review_series: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_series',
+		},
+		book_review_source: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_source',
+		},
+		book_review_summary: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_summary',
+		},
+		book_review_title: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_title',
+		},
+		/* Old attributes for backwards compatibility */
+		/* If any of these have a value, then this is the old version. */
 		author: {
 			type: 'array',
 			source: 'children',
 			selector: '.book-review-block__author',
 		},
-		backgroundColor: {
-			type: 'string',
-		},
-		description: {
+		details: {
 			type: 'array',
 			source: 'children',
-			selector: '.book-review-block__description',
+			selector: '.book-review-block__details'
 		},
 		format: {
 			type: 'array',
@@ -73,9 +142,6 @@ registerBlockType( 'book-review-block/book-review', {
 			type: 'array',
 			source: 'children',
 			selector: '.book-review-block__genre',
-		},
-		id: {
-			type: 'number',
 		},
 		pages: {
 			type: 'array',
@@ -105,6 +171,11 @@ registerBlockType( 'book-review-block/book-review', {
 			source: 'children',
 			selector: '.book-review-block__source',
 		},
+		summary: {
+			type: 'array',
+			source: 'children',
+			selector: '.book-review-block__description',
+		},
 		title: {
 			type: 'array',
 			source: 'children',
@@ -121,25 +192,71 @@ registerBlockType( 'book-review-block/book-review', {
 	edit: ( { attributes, className, isSelected, setAttributes } ) => {
 		const {
 			alt,
-			author,
 			backgroundColor,
-			description,
-			format,
-			genre,
 			id,
-			pages,
-			publisher,
-			rating: reviewRating,
-			releaseDate,
-			series,
-			source,
-			title,
-			url,
 		} = attributes;
-		const setCover = ( { alt, id, url } ) => setAttributes( { alt, id, url } );
-		const updateRating = event => setAttributes( { rating: event.target.dataset.rating } );
+		const isOldBlock = isOldVersion( attributes );
+
+		// Set old (HTML) attributes to undefined so data will be stored to new (meta) attributes.
+		if ( ! isOldBlock ) {
+			attributes.author = undefined;
+			attributes.format = undefined;
+			attributes.genre = undefined;
+			attributes.pages = undefined;
+			attributes.publisher = undefined;
+			attributes.rating = undefined;
+			attributes.releaseDate = undefined;
+			attributes.series = undefined;
+			attributes.source = undefined;
+			attributes.summary = undefined;
+			attributes.title = undefined;
+			attributes.url = undefined;
+		}
+
+		// If HTML attributes are undefined, use the meta attributes.
+		const {
+			author: author = attributes.book_review_author,
+			format: format = attributes.book_review_format,
+			genre: genre = attributes.book_review_genre,
+			pages: pages = attributes.book_review_pages,
+			publisher: publisher = attributes.book_review_publisher,
+			rating: currentRating = attributes.book_review_rating,
+			releaseDate = attributes.book_review_release_date,
+			series: series = attributes.book_review_series,
+			source: source = attributes.book_review_source,
+			summary: summary = attributes.book_review_summary,
+			title: title = attributes.book_review_title,
+			url: coverUrl = attributes.book_review_cover_url,
+		} = attributes;
+
+		const setCover = ( { alt, id, url } ) => {
+			if ( ! isOldBlock ) {
+				setAttributes( { alt, id, book_review_cover_url: url } );
+			} else {
+				setAttributes( { alt, id, url } );
+			}
+		}
+		const updateBackgroundColor = value => setAttributes( { backgroundColor: value } );
+		const updateRating = event => {
+			if ( ! isOldBlock ) {
+				setAttributes( { book_review_rating: event.target.dataset.rating } );
+			} else {
+				setAttributes( { rating: event.target.dataset.rating } );
+			}
+		}
 		const updateValue = field => value => {
+			if ( ! isOldBlock ) {
+				field = 'book_review_' + field;
+			}
+
 			setAttributes( { [ field ]: value } );
+		}
+		const updateSummary = summary => {
+			if ( ! isOldBlock ) {
+				setAttributes( { book_review_summary: [summary] } );
+			} else {
+				setAttributes( { [ 'summary' ]: summary } );
+			}
 		}
 
 		return (
@@ -174,7 +291,7 @@ registerBlockType( 'book-review-block/book-review', {
 							colorSettings={ [
 								{
 									value: backgroundColor && backgroundColor.value,
-									onChange: updateValue( 'backgroundColor' ),
+									onChange: updateBackgroundColor,
 									label: __( 'Background Color' ),
 								},
 							] }
@@ -182,7 +299,7 @@ registerBlockType( 'book-review-block/book-review', {
 					</InspectorControls>
 				) }
 
-				{ ! url && (
+				{ ! coverUrl && (
 					<MediaPlaceholder
 						accept="image/*"
 						allowedTypes={ [ 'image' ] }
@@ -195,12 +312,12 @@ registerBlockType( 'book-review-block/book-review', {
 						onSelect={ setCover } />
 				) }
 
-				{ !! url && (
+				{ !! coverUrl && (
 					<div className="book-review-block__cover-wrapper">
 						<img
 							alt={ alt }
 							className="book-review-block__cover"
-							src={ url } />
+							src={ coverUrl } />
 					</div>
 				) }
 
@@ -264,7 +381,7 @@ registerBlockType( 'book-review-block/book-review', {
 						onClick={ updateRating }>
 						{ ratings.map( ( { rating, title } ) => (
 							<span
-								className={ reviewRating && rating <= reviewRating ? 'on' : 'off' }
+								className={ currentRating && currentRating >= rating ? 'on' : 'off' }
 								data-rating={ rating }
 								key={ rating }
 								title={ title }>
@@ -275,9 +392,9 @@ registerBlockType( 'book-review-block/book-review', {
 
 					<RichText
 						multiline="p"
-						onChange={ updateValue( 'description' ) }
+						onChange={ updateSummary }
 						placeholder={ __( 'Enter description…' ) }
-						value={ description }
+						value={ isOldBlock ? summary : autop( summary[0] ) }
 						wrapperClassName="book-review-block__description"
 						inlineToolbar
 						keepPlaceholderOnFocus />
@@ -287,11 +404,15 @@ registerBlockType( 'book-review-block/book-review', {
 	},
 
 	save: ( { attributes } ) => {
+		if ( ! isOldVersion( attributes ) ) {
+			return null;
+		}
+
 		const {
 			alt,
 			author = [],
 			backgroundColor,
-			description = [],
+			summary = [],
 			format = [],
 			genre = [],
 			pages = [],
@@ -341,7 +462,7 @@ registerBlockType( 'book-review-block/book-review', {
 						) ) }
 					</div>
 
-					{ description.length > 0 && <div className="book-review-block__description">{ description }</div> }
+					{ summary.length > 0 && <div className="book-review-block__description">{ summary }</div> }
 				</div>
 			</div>
 		);

@@ -394,7 +394,7 @@ registerBlockType( 'book-review-block/book-review', {
 						multiline="p"
 						onChange={ updateSummary }
 						placeholder={ __( 'Enter description…' ) }
-						value={ isOldBlock ? summary : autop( summary[0] ) }
+						value={ isOldBlock || summary.length === 0 ? summary : autop( summary[0] ) }
 						wrapperClassName="book-review-block__description"
 						inlineToolbar
 						keepPlaceholderOnFocus />

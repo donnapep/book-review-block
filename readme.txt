@@ -4,7 +4,7 @@ Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book
 Author URI: https://donnapeplinskie.com
 Requires at least: 4.8
 Tested up to: 4.9.8
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,9 +35,12 @@ OR
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix: Gutenberg 4.5.0 compatibility.
+
 = 1.2.0 =
-* New: Add support for rich snippets
-* New: Provide upgrade path for migrating from the Book Review plugin
+* New: Add support for rich snippets.
+* New: Provide upgrade path for migrating from the Book Review plugin.
 
 = 1.1.3 =
 * Fix: Replace deprecated Gutenberg properties and component.

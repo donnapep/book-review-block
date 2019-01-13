@@ -2,7 +2,6 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { autop } from '@wordpress/autop';
 
 const { __ } = wp.i18n;
 const {
@@ -221,7 +220,7 @@ registerBlockType( 'book-review-block/book-review', {
 			pages: pages = attributes.book_review_pages,
 			publisher: publisher = attributes.book_review_publisher,
 			rating: currentRating = attributes.book_review_rating,
-			releaseDate = attributes.book_review_release_date,
+			releaseDate: releaseDate = attributes.book_review_release_date,
 			series: series = attributes.book_review_series,
 			source: source = attributes.book_review_source,
 			summary: summary = attributes.book_review_summary,
@@ -244,6 +243,13 @@ registerBlockType( 'book-review-block/book-review', {
 				setAttributes( { rating: event.target.dataset.rating } );
 			}
 		}
+		const updateReleaseDate = releaseDate => {
+			if ( ! isOldBlock ) {
+				setAttributes( { book_review_release_date: releaseDate } );
+			} else {
+				setAttributes( { [ 'releaseDate' ]: releaseDate } );
+			}
+		}
 		const updateValue = field => value => {
 			if ( ! isOldBlock ) {
 				field = 'book_review_' + field;
@@ -253,7 +259,7 @@ registerBlockType( 'book-review-block/book-review', {
 		}
 		const updateSummary = summary => {
 			if ( ! isOldBlock ) {
-				setAttributes( { book_review_summary: [summary] } );
+				setAttributes( { book_review_summary: summary } );
 			} else {
 				setAttributes( { [ 'summary' ]: summary } );
 			}
@@ -353,7 +359,7 @@ registerBlockType( 'book-review-block/book-review', {
 						keepPlaceholderOnFocus />
 
 					<RichText
-						onChange={ updateValue( 'releaseDate' ) }
+						onChange={ updateReleaseDate }
 						placeholder={ __( 'Enter release date…' ) }
 						value={ releaseDate }
 						keepPlaceholderOnFocus />
@@ -394,7 +400,7 @@ registerBlockType( 'book-review-block/book-review', {
 						multiline="p"
 						onChange={ updateSummary }
 						placeholder={ __( 'Enter description…' ) }
-						value={ isOldBlock || summary.length === 0 ? summary : autop( summary[0] ) }
+						value={ summary }
 						wrapperClassName="book-review-block__description"
 						inlineToolbar
 						keepPlaceholderOnFocus />

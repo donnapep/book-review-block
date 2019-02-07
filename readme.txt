@@ -4,7 +4,7 @@ Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book
 Author URI: https://donnapeplinskie.com
 Requires at least: 4.8
 Tested up to: 5.0.3
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.2.3 =
+* Fix: Review not showing on front end
 
 = 1.2.2 =
 * Fix: style.css not loading in editor

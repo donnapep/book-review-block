@@ -52,7 +52,7 @@
 			<span
 				class="book-review-block__title"
 				itemprop="name">
-				<?php echo esc_html( $title ); ?>
+				<?php echo wp_kses_post( $title ); ?>
 			</span>
 		</span>
 		<?php endif; ?>
@@ -60,14 +60,14 @@
 		<!-- Series -->
 		<?php if ( ! empty( $series ) ): ?>
 		<span class="book-review-block__series">
-			<?php echo esc_html( $series ); ?>
+			<?php echo wp_kses_post( $series ); ?>
 		</span>
 		<?php endif; ?>
 
 		<!-- Author -->
 		<?php if ( ! empty( $author ) ): ?>
 		<span class="book-review-block__author">
-			<?php echo esc_html( $author ); ?>
+			<?php echo wp_kses_post( $author ); ?>
 		</span>
 		<?php endif; ?>
 
@@ -76,7 +76,7 @@
 		<span
 			class="book-review-block__genre"
 			itemprop="genre">
-			<?php echo esc_html( $genre ); ?>
+			<?php echo wp_kses_post( $genre ); ?>
 		</span>
 		<?php endif; ?>
 
@@ -85,35 +85,35 @@
 		<span
 			class="book-review-block__publisher"
 			itemprop="publisher">
-			<?php echo esc_html( $publisher ); ?>
+			<?php echo wp_kses_post( $publisher ); ?>
 		</span>
 		<?php endif; ?>
 
 		<!-- Release Date -->
 		<?php if ( ! empty( $release_date ) ): ?>
 		<span class="book-review-block__release-date">
-			<?php echo esc_html( $release_date ); ?>
+			<?php echo wp_kses_post( $release_date ); ?>
 		</span>
 		<?php endif; ?>
 
 		<!-- Format -->
 		<?php if ( ! empty( $format ) ): ?>
 		<span class="book-review-block__format">
-			<?php echo esc_html( $format ); ?>
+			<?php echo wp_kses_post( $format ); ?>
 		</span>
 		<?php endif; ?>
 
 		<!-- Pages -->
 		<?php if ( ! empty( $pages ) ): ?>
 		<span class="book-review-block__pages">
-			<?php echo esc_html( $pages ); ?>
+			<?php echo wp_kses_post( $pages ); ?>
 		</span>
 		<?php endif; ?>
 
 		<!-- Source -->
 		<?php if ( ! empty( $source ) ): ?>
 		<span class="book-review-block__source">
-			<?php echo esc_html( $source ); ?>
+			<?php echo wp_kses_post( $source ); ?>
 		</span>
 		<?php endif; ?>
 
@@ -127,14 +127,14 @@
 			<meta
 				content="<?php echo esc_attr( $this->get_post_meta( 'book_review_rating' ) ); ?>"
 				itemprop="ratingValue">
-			<?php echo implode( $rating_html ); ?>
+			<?php echo wp_kses_post( implode( $rating_html ) ); ?>
 		</div>
 		<?php endif; ?>
 
 		<!-- Summary / Synopsis -->
 		<?php if ( ! empty( $summary ) ): ?>
 		<div class="book-review-block__description">
-			<?php echo wpautop( $summary ); ?>
+			<?php echo wpautop( wp_kses_post( $summary ) ); ?>
 		</div>
 		<?php endif; ?>
 	</div>

@@ -1,6 +1,6 @@
 {
   "name": "book-review-block",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "main": "index.jsx",
   "dependencies": {
     "@wordpress/autop": "^2.0.2",

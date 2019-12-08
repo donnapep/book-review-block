@@ -26,6 +26,7 @@ const {
  */
 import './editor.scss';
 import './style.scss';
+import icon from './icon';
 
 const ratings = [
 	{ rating: 5, title: 'it was amazing' },
@@ -38,7 +39,7 @@ const ratings = [
 registerBlockType( 'book-review-block/book-review', {
 	title: 'Review',
 	description: 'Add book details such as title, author, publisher and cover image to enhance your review posts.',
-	icon: 'book',
+	icon: icon,
 	category: 'book-review',
 	supports: {
 		anchor: true,

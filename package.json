@@ -4,6 +4,7 @@
   "main": "index.jsx",
   "dependencies": {
     "@wordpress/autop": "^2.0.2",
+    "@wordpress/components": "^8.4.0",
     "classnames": "^2.2.5"
   },
   "devDependencies": {

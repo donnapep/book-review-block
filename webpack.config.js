@@ -35,7 +35,7 @@ const extractConfig = {
 };
 
 const webpackConfig = {
-	entry: './index.jsx',
+	entry: './src/blocks/index.js',
 	output: {
 		filename: 'build/index.js',
 		path: __dirname,
@@ -63,7 +63,10 @@ const webpackConfig = {
 		} ),
 		blocksCSSPlugin,
 		editBlocksCSSPlugin,
-	]
+	],
+	resolve: {
+		extensions: ['.js', '.jsx']
+	}
 };
 
 if ( 'production' === NODE_ENV ) {

@@ -36,10 +36,10 @@ const ratings = [
 ];
 
 registerBlockType( 'book-review-block/book-review', {
-	title: 'Book Review',
+	title: 'Review',
 	description: 'Add book details such as title, author, publisher and cover image to enhance your review posts.',
 	icon: 'book',
-	category: 'widgets',
+	category: 'book-review',
 	supports: {
 		anchor: true,
 		multiple: false,

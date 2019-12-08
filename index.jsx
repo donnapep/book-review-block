@@ -225,55 +225,55 @@ registerBlockType( 'book-review-block/book-review', {
 				<div className="book-review-block__details">
 					<RichText
 						onChange={ updateValue( 'book_review_title' ) }
-						placeholder={ __( 'Enter title…' ) }
+						placeholder={ __( 'Title' ) }
 						value={ book_review_title ? book_review_title : title }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_series' ) }
-						placeholder={ __( 'Enter series…' ) }
+						placeholder={ __( 'Series' ) }
 						value={ book_review_series ? book_review_series : series }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_author' ) }
-						placeholder={ __( 'Enter author…' ) }
+						placeholder={ __( 'Author' ) }
 						value={ book_review_author ? book_review_author : author }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_genre' ) }
-						placeholder={ __( 'Enter genre…' ) }
+						placeholder={ __( 'Genre' ) }
 						value={ book_review_genre ? book_review_genre : genre }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_publisher' ) }
-						placeholder={ __( 'Enter publisher…' ) }
+						placeholder={ __( 'Publisher' ) }
 						value={ book_review_publisher ? book_review_publisher : publisher }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_release_date' ) }
-						placeholder={ __( 'Enter release date…' ) }
+						placeholder={ __( 'Release Date' ) }
 						value={ book_review_release_date ? book_review_release_date : releaseDate }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_format' ) }
-						placeholder={ __( 'Enter format…' ) }
+						placeholder={ __( 'Format' ) }
 						value={ book_review_format ? book_review_format : format }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_pages' ) }
-						placeholder={ __( 'Enter pages…' ) }
+						placeholder={ __( 'Pages' ) }
 						value={ book_review_pages ? book_review_pages : pages }
 						keepPlaceholderOnFocus />
 
 					<RichText
 						onChange={ updateValue( 'book_review_source' ) }
-						placeholder={ __( 'Enter source…' ) }
+						placeholder={ __( 'Source' ) }
 						value={ book_review_source ? book_review_source : source }
 						keepPlaceholderOnFocus />
 
@@ -294,7 +294,7 @@ registerBlockType( 'book-review-block/book-review', {
 					<RichText
 						multiline="p"
 						onChange={ updateValue( 'book_review_summary' ) }
-						placeholder={ __( 'Enter description…' ) }
+						placeholder={ __( 'Description' ) }
 						value={ book_review_summary ? book_review_summary : summary }
 						wrapperClassName="book-review-block__description"
 						inlineToolbar

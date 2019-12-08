@@ -35,6 +35,12 @@ OR
 
 == Changelog ==
 
+= 1.3.0 =
+* New: Create a separate "Book Review" block category
+* New: Update icons for block and block category
+* New: Deprecate version of block that previously stored attributes in post content
+* Tweak: Simplify placeholder text displayed in editor
+
 = 1.2.4 =
 * Fix: HTML displaying in reviews
 

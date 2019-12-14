@@ -7,4 +7,4 @@
  * Webpack is compiling as the input file.
  */
 import './block-category';
-import './book-review';
+import './blocks/book-review';

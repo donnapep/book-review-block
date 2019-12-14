@@ -4,9 +4,7 @@
 import classnames from 'classnames';
 
 const { __ } = wp.i18n;
-const {
-	registerBlockType,
-} = wp.blocks;
+const { registerBlockType } = wp.blocks;
 const {
 	Button,
 	Dashicon,

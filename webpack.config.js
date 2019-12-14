@@ -1,73 +1,73 @@
-/* global require, process, __dirname, module */
-const webpack = require( 'webpack' );
-const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const defaultConfig = require( './node_modules/@wordpress/scripts/config/webpack.config.js' );
+const path = require( 'path' );
+const IgnoreEmitPlugin = require( 'ignore-emit-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+const OptimizeCSSAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
+const TerserJSPlugin = require( 'terser-webpack-plugin' );
 
-// CSS loader for styles specific to blocks in general.
-const blocksCSSPlugin = new ExtractTextPlugin( {
-	filename: 'build/style.css',
-} );
+const production = process.env.NODE_ENV === '';
 
-// CSS loader for styles specific to block editing.
-const editBlocksCSSPlugin = new ExtractTextPlugin( {
-	filename: 'build/editor.css',
-} );
-
-// Configuration for the ExtractTextPlugin.
-const extractConfig = {
-	use: [
-		{ loader: 'raw-loader' },
-		{
-			loader: 'postcss-loader',
-			options: {
-				plugins: [
-					require( 'autoprefixer' ),
-				],
-			},
-		},
-		{
-			loader: 'sass-loader',
-			query: {
-				outputStyle: 'production' === process.env.NODE_ENV ? 'compressed' : 'nested',
-			},
-		},
-	],
-};
-
-const webpackConfig = {
-	entry: './index.jsx',
-	output: {
-		filename: 'build/index.js',
-		path: __dirname,
+module.exports = {
+	...defaultConfig,
+	entry: {
+		index: path.resolve( process.cwd(), 'src/', 'index.js' ),
+		// TODO: This will need to be changed when another block is added.
+		style: path.resolve( process.cwd(), 'src/blocks/book-review/', 'style.scss' ),
+		editor: path.resolve( process.cwd(), 'src/blocks/book-review/', 'editor.scss' ),
+	},
+	optimization: {
+		...defaultConfig.optimization,
+		minimizer: [ new TerserJSPlugin( {} ), new OptimizeCSSAssetsPlugin( {} ) ],
 	},
 	module: {
+		...defaultConfig.module,
 		rules: [
+			...defaultConfig.module.rules,
 			{
-				test: /.jsx$/,
+				test: /\.(js|jsx)$/,
 				loader: 'babel-loader',
 				exclude: /node_modules/,
 			},
 			{
-				test: /style\.s?css$/,
-				use: blocksCSSPlugin.extract( extractConfig )
-			},
-			{
-				test: /editor\.s?css$/,
-				use: editBlocksCSSPlugin.extract( extractConfig ),
+				test: /\.scss$/,
+				use: [
+					MiniCssExtractPlugin.loader, // Extract CSS into separate files.
+					'css-loader', // Required by MiniCssExtractPlugin.
+					{
+						loader: 'postcss-loader', // Apply vendor prefixes
+						options: {
+							plugins: [
+								require( 'autoprefixer' ),
+							],
+						},
+					},
+					{
+						loader: 'sass-loader', // Compile Sass to CSS
+						query: {
+							sassOptions: {
+								outputStyle: production ? 'compressed' : 'nested',
+							},
+						},
+					},
+				],
 			},
 		],
 	},
 	plugins: [
-		new webpack.DefinePlugin( {
-			'process.env.NODE_ENV': JSON.stringify( NODE_ENV )
+		...defaultConfig.plugins,
+		new MiniCssExtractPlugin( {
+			filename: '[name].css',
 		} ),
-		blocksCSSPlugin,
-		editBlocksCSSPlugin,
-	]
+		new IgnoreEmitPlugin( [
+			'editor.asset.php',
+			'editor.js',
+			'index.css',
+			'style.asset.php',
+			'style.js',
+		] ),
+	],
+	resolve: {
+		...defaultConfig.resolve,
+		extensions: ['.js', '.jsx']
+	}
 };
-
-if ( 'production' === NODE_ENV ) {
-	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin() );
-}
-
-module.exports = webpackConfig;

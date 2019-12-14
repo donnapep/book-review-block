@@ -6,6 +6,7 @@
  * Author: Donna Peplinskie
  * Author URI: https://donnapeplinskie.com
  * Version: 1.3.0
+ * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -114,12 +115,14 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function enqueue_block_editor_assets() {
+		$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
+
 		// Scripts
 		wp_enqueue_script(
 			$this->slug,
 			$this->url . '/build/index.js',
 			array( 'wp-blocks', 'wp-components', 'wp-editor' ),
-			$this->version
+			$asset_file['version']
 		);
 
 		// Styles
@@ -146,7 +149,6 @@ class Book_Review_Block {
 			$this->version
 		);
 	}
-
 
 	/**
 	 * Renders the book review block.

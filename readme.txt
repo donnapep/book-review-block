@@ -4,7 +4,7 @@ Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.0
 Tested up to: 5.3
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.3.1 =
+* New: Add book author, datePublished and numberOfPages to structured data
+* Fix: Structured data error
 
 = 1.3.0 =
 * New: Create a separate "Book Review" block category

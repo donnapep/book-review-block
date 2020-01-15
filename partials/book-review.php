@@ -9,35 +9,19 @@
  * @author    Donna Peplinskie <support@wpreviewplugins.com>
  * @license   GPL-2.0+
  * @link      http://wpreviewplugins.com/
- * @copyright 2014 Donna Peplinskie
  */
 ?>
 
-<div
-	itemscope
+<div itemscope itemtype="http://schema.org/Book"
 	class="book-review-block<?php if ( ! empty( $background_color ) ) echo ' has-background'; ?>"
-	itemtype="http://schema.org/Review"
 	style="background-color: <?php echo esc_attr( $background_color ); ?>">
-
-	<!-- Meta for schema.org -->
-	<meta
-		content="<?php echo esc_attr( get_the_title() ); ?>"
-		itemprop="headline">
-	<!-- author is mandatory! -->
-	<meta
-		content="<?php echo esc_attr( get_the_author() ); ?>"
-		itemprop="author">
-	<meta
-		content="<?php esc_attr( the_date( 'Y-m-d' ) ); ?>"
-		itemprop="datePublished">
 
 	<!-- Cover -->
 	<?php if ( ! empty( $cover_url ) ): ?>
 	<div class="book-review-block__cover-wrapper">
-		<img
+		<img itemprop="image"
 			alt="<?php echo esc_attr( $title . ' ' . __( 'Book Cover', 'book-review-block' ) ); ?>"
 			class="book-review-block__cover"
-			itemprop="image"
 			src="<?php echo esc_url( $cover_url ); ?>">
 	</div>
 	<?php endif; ?>
@@ -45,15 +29,9 @@
 	<div class="book-review-block__details">
 		<!-- Title -->
 		<?php if ( ! empty( $title ) ): ?>
-		<span
-			itemscope
-			itemprop="itemReviewed"
-			itemtype="http://schema.org/Thing">
-			<span
-				class="book-review-block__title"
-				itemprop="name">
-				<?php echo wp_kses_post( $title ); ?>
-			</span>
+		<span itemprop="name"
+			class="book-review-block__title">
+			<?php echo wp_kses_post( $title ); ?>
 		</span>
 		<?php endif; ?>
 
@@ -66,32 +44,36 @@
 
 		<!-- Author -->
 		<?php if ( ! empty( $author ) ): ?>
-		<span class="book-review-block__author">
-			<?php echo wp_kses_post( $author ); ?>
+		<span itemscope itemtype="https://schema.org/Person" itemprop="author">
+			<span itemprop="name"
+				class="book-review-block__author">
+				<?php echo wp_kses_post( $author ); ?>
+			</span>
 		</span>
 		<?php endif; ?>
 
 		<!-- Genre -->
 		<?php if ( ! empty( $genre ) ): ?>
-		<span
-			class="book-review-block__genre"
-			itemprop="genre">
+		<span itemprop="genre"
+			class="book-review-block__genre">
 			<?php echo wp_kses_post( $genre ); ?>
 		</span>
 		<?php endif; ?>
 
 		<!-- Publisher -->
 		<?php if ( ! empty( $publisher ) ): ?>
-		<span
-			class="book-review-block__publisher"
-			itemprop="publisher">
-			<?php echo wp_kses_post( $publisher ); ?>
+		<span itemscope itemtype="https://schema.org/Organization" itemprop="publisher">
+			<span itemprop="name"
+				class="book-review-block__publisher">
+				<?php echo wp_kses_post( $publisher ); ?>
+			</span>
 		</span>
 		<?php endif; ?>
 
 		<!-- Release Date -->
 		<?php if ( ! empty( $release_date ) ): ?>
-		<span class="book-review-block__release-date">
+		<span itemprop="datePublished"
+			class="book-review-block__release-date">
 			<?php echo wp_kses_post( $release_date ); ?>
 		</span>
 		<?php endif; ?>
@@ -105,7 +87,8 @@
 
 		<!-- Pages -->
 		<?php if ( ! empty( $pages ) ): ?>
-		<span class="book-review-block__pages">
+		<span itemprop="numberOfPages"
+			class="book-review-block__pages">
 			<?php echo wp_kses_post( $pages ); ?>
 		</span>
 		<?php endif; ?>
@@ -117,19 +100,28 @@
 		</span>
 		<?php endif; ?>
 
-		<!-- Rating -->
-		<?php if ( ! empty( $rating_html ) ): ?>
-		<div
-			itemscope
-			class="book-review-block__rating"
-			itemprop="reviewRating"
-			itemtype="http://schema.org/Rating">
-			<meta
-				content="<?php echo esc_attr( $this->get_post_meta( 'book_review_rating' ) ); ?>"
-				itemprop="ratingValue">
-			<?php echo wp_kses_post( implode( $rating_html ) ); ?>
+		<div itemscope itemtype="https://schema.org/Review" itemprop="review">
+
+			<span itemscope itemtype="https://schema.org/Person" itemprop="author">
+				<meta itemprop="name"
+					content="<?php echo esc_attr( get_the_author() ); ?>">
+			</span>
+			<meta itemprop="datePublished"
+				content="<?php esc_attr( the_date( 'Y-m-d' ) ); ?>">
+			<meta itemprop="headline"
+				content="<?php echo esc_attr( get_the_title() ); ?>">
+
+			<!-- Rating -->
+			<?php if ( ! empty( $rating_html ) ): ?>
+				<div itemscope itemtype="http://schema.org/Rating" itemprop="reviewRating"
+					class="book-review-block__rating">
+					<meta itemprop="ratingValue"
+						content="<?php echo esc_attr( $this->get_post_meta( 'book_review_rating' ) ); ?>">
+					<?php echo wp_kses_post( implode( $rating_html ) ); ?>
+				</div>
+			<?php endif; ?>
+
 		</div>
-		<?php endif; ?>
 
 		<!-- Summary / Synopsis -->
 		<?php if ( ! empty( $summary ) ): ?>

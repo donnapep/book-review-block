@@ -35,6 +35,10 @@ OR
 
 == Changelog ==
 
+= 1.3.1 =
+* New: Add book author, datePublished and numberOfPages to structured data
+* Fix: Structured data error
+
 = 1.3.0 =
 * New: Create a separate "Book Review" block category
 * New: Update icons for block and block category

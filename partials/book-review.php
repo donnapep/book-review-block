@@ -114,10 +114,31 @@
 			<!-- Rating -->
 			<?php if ( ! empty( $rating_html ) ): ?>
 				<div itemscope itemtype="http://schema.org/Rating" itemprop="reviewRating"
-					class="book-review-block__rating">
+					class="book-review-block__rating book-review-block__review-rating">
 					<meta itemprop="ratingValue"
 						content="<?php echo esc_attr( $this->get_post_meta( 'book_review_rating' ) ); ?>">
-					<?php echo wp_kses_post( implode( $rating_html ) ); ?>
+					<?php
+						echo wp_kses(
+							implode( $rating_html ),
+							array_merge(
+								wp_kses_allowed_html( 'post' ),
+								array(
+									'svg'   => array(
+										'height'  => array(),
+										'viewbox' => array(),
+										'width'   => array(),
+										'xmlns'   => array(),
+									),
+									'path'  => array(
+										'class'  => array(),
+										'd'      => array(),
+										'fill'   => array(),
+										'stroke' => array(),
+									),
+								)
+							)
+						);
+					?>
 				</div>
 			<?php endif; ?>
 

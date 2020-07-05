@@ -3,8 +3,8 @@ Contributors: donnapep
 Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.0
-Tested up to: 5.3
-Stable tag: 1.3.1
+Tested up to: 5.4
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.4.0 =
+* New: Add support for half-star ratings. Click once for full star or twice for half-star.
+* Fix: Misalignment of block toolbar items.
 
 = 1.3.1 =
 * New: Add book author, datePublished and numberOfPages to structured data

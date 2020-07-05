@@ -21,14 +21,59 @@
 		display: block;
 	}
 
-	.book-review-block__rating {
+	/* Rating */
+	.book-review-block__rating-button {
+		display: inline-flex;
+		margin-right: 0.3em;
+
+		// Mimic core focus style.
+		border-radius: 4px;
+
+		&:focus {
+			box-shadow: 0 0 0 1px currentColor;
+
+			// Provide focus style for Windows 10 High Contrast mode.
+			outline: 2px solid transparent;
+		}
+	}
+
+	// There are two stars in every whole star, but they should be cropped as halves.
+	.book-review-block__rating-button span,
+	.book-review-block__review-rating > span span {
+		flex-shrink: 0;
+		width: 12px;
+		overflow: hidden;
+		display: inline-flex;
+	}
+
+	.book-review-block__rating-button span svg,
+	.book-review-block__review-rating > span span svg {
+		flex-shrink: 0;
+	}
+
+	// Tweak 2nd half of star.
+	.book-review-block__rating-button span:nth-child(even),
+	.book-review-block__review-rating > span span:nth-child(even) {
+		justify-content: flex-end;
+	}
+
+	.book-review-block__review-rating > span {
+		display: inline-flex !important;
+	}
+
+	.is-rating-unfilled {
+		fill-opacity: 0;
+		stroke-width: 2px;
+	}
+
+	/* Deprecated CSS */
+	.book-review-block__rating:not(.book-review-block__review-rating) {
 		unicode-bidi: bidi-override;
 		direction: rtl;
 		text-align: left;
-		margin-bottom: 1em;
 	}
 
-	.book-review-block__rating > span {
+	.book-review-block__rating:not(.book-review-block__review-rating) > span {
 		display: inline-block;
 		position: relative;
 		width: 1.0em;
@@ -36,12 +81,8 @@
 		font-size: 20px;
 	}
 
-	.book-review-block__rating > span.on:before {
+	.book-review-block__rating:not(.book-review-block__review-rating) > span.on:before {
 		content: "\2605";
 		position: absolute;
-	}
-
-	.book-review-block__description p:last-child {
-		margin-bottom: 0;
 	}
 }

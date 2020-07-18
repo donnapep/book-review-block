@@ -5,7 +5,7 @@
  * Description: A Gutenberg block to add book details and a star rating to a book review post.
  * Author: Donna Peplinskie
  * Author URI: https://donnapeplinskie.com
- * Version: 1.3.0
+ * Version: 1.4.0
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -68,7 +68,7 @@ class Book_Review_Block {
 	 * @access   private
 	 */
 	private function __construct() {
-		$this->version = '1.3.0';
+		$this->version = '1.4.0';
 		$this->slug    = 'book-review-block';
 		$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
@@ -176,7 +176,7 @@ class Book_Review_Block {
 			$pages = $this->get_post_meta( 'book_review_pages' );
 			$source = $this->get_post_meta( 'book_review_source' );
 			$summary = $this->get_post_meta( 'book_review_summary' );
-			$rating_html = array_map( array( $this, 'get_rating_html' ), array( 5, 4, 3, 2, 1) );
+			$rating_html = array_map( array( $this, 'get_rating_html' ), array( 1, 2, 3, 4, 5 ) );
 
 			if ( isset( $attributes ) && isset( $attributes['backgroundColor'] ) ) {
 				$background_color = $attributes['backgroundColor'];
@@ -228,20 +228,24 @@ class Book_Review_Block {
 	 * @access private
 	 */
 	private function get_rating_html( $rating ) {
-		$current_rating = intval( $this->get_post_meta( 'book_review_rating' ) );
+		$current_rating = floatval( $this->get_post_meta( 'book_review_rating' ) );
+		$classname_whole = ( $current_rating >= ( $rating - 0.5 ) ) ? '' : 'is-rating-unfilled';
+		$classname_half  = ( $current_rating >= $rating ) ? '' : 'is-rating-unfilled';
 
-		if ( ( $current_rating > 0 ) && ( $current_rating >= $rating ) ) {
-			$class = 'on';
-		} else {
-			$class = 'off';
-		}
+		$html = "<span>" .
+			"<span>" .
+				"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>" .
+					"<path class='{$classname_whole}' fill='#eba845' stroke='#eba845' d='M12,17.3l6.2,3.7l-1.6-7L22,9.2l-7.2-0.6L12,2L9.2,8.6L2,9.2L7.5,14l-1.6,7L12,17.3z' />" .
+				"</svg>" .
+			"</span>" .
+			"<span>" .
+				"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>" .
+					"<path class='{$classname_half}' fill='#eba845' stroke='#eba845' d='M12,17.3l6.2,3.7l-1.6-7L22,9.2l-7.2-0.6L12,2L9.2,8.6L2,9.2L7.5,14l-1.6,7L12,17.3z' />" .
+				"</svg>" .
+			"</span>" .
+		"</span>";
 
-		return
-			'<span ' .
-				'class="' . $class . '" ' .
-				'data-rating="' . $rating . '">' .
-				'&#9734;' .
-			'</span>';
+		return $html;
 	}
 }
 

@@ -3,28 +3,15 @@
  */
 import classnames from 'classnames';
 
-const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const {
-	Button,
-	Dashicon,
-	Toolbar,
-} = wp.components;
-const {
-	BlockControls,
-	InspectorControls,
-	MediaPlaceholder,
-	MediaUpload,
-	PanelColorSettings,
-	RichText,
-} = wp.editor;
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
 import './style.scss';
-import icon from './icon';
+import edit from './edit';
+import { BookReviewBlockIcon } from './icon';
 
 const ratings = [
 	{ rating: 5, title: 'it was amazing' },
@@ -37,7 +24,7 @@ const ratings = [
 registerBlockType( 'book-review-block/book-review', {
 	title: 'Review',
 	description: 'Add book details such as title, author, publisher and cover image to enhance your review posts.',
-	icon: icon,
+	icon: BookReviewBlockIcon,
 	category: 'book-review',
 	supports: {
 		anchor: true,
@@ -117,196 +104,10 @@ registerBlockType( 'book-review-block/book-review', {
 			meta: 'book_review_title',
 		},
 	},
-
-	edit: ( { attributes, className, isSelected, setAttributes } ) => {
-		const {
-			alt,
-			backgroundColor,
-			id,
-			book_review_author,
-			book_review_cover_url,
-			book_review_format,
-			book_review_genre,
-			book_review_pages,
-			book_review_publisher,
-			book_review_rating,
-			book_review_release_date,
-			book_review_series,
-			book_review_source,
-			book_review_summary,
-			book_review_title,
-			// Deprecated attributes
-			author,
-			format,
-			genre,
-			pages,
-			publisher,
-			rating,
-			releaseDate,
-			series,
-			source,
-			summary,
-			title,
-			url,
-		} = attributes;
-
-		// Workaround for deprecated block migrations not saving to meta.
-		// This is needed to restore data that was stored in HTML attributes (i.e. post content).
-		const currentRating = book_review_rating ? book_review_rating : rating;
-		const coverUrl = book_review_cover_url ? book_review_cover_url : url;
-
-		const setCover = ( { alt, id, url } ) => setAttributes( { alt, id, book_review_cover_url: url } );
-		const updateRating = event => setAttributes( { book_review_rating: event.target.dataset.rating } );
-		const updateValue = field => value => setAttributes( { [ field ]: value } );
-
-		return (
-			<div
-				className={ classnames( 'book-review-block', className, {
-					'has-background': backgroundColor,
-				} ) }
-				style={ {
-					backgroundColor: backgroundColor,
-				} }>
-				{ isSelected && (
-					<BlockControls key="controls">
-						<Toolbar>
-							<MediaUpload
-								onSelect={ setCover }
-								allowedTypes={ [ 'image' ] }
-								value={ id }
-								render={ ( { open } ) => (
-									<Button onClick={ open }>
-										<Dashicon icon="edit" />
-										{ __( 'Edit Book Cover' ) }
-									</Button>
-								) }
-							/>
-						</Toolbar>
-					</BlockControls>
-				) }
-
-				{ isSelected && (
-					<InspectorControls key="inspector">
-						<PanelColorSettings
-							colorSettings={ [
-								{
-									value: backgroundColor && backgroundColor.value,
-									onChange: updateValue( 'backgroundColor' ),
-									label: __( 'Background Color' ),
-								},
-							] }
-						/>
-					</InspectorControls>
-				) }
-
-				{ ! coverUrl && (
-					<MediaPlaceholder
-						accept="image/*"
-						allowedTypes={ [ 'image' ] }
-						icon="format-image"
-						instructions={ __( 'Upload or insert book cover from media library' ) }
-						labels={ {
-							title: __( 'Book Cover' ),
-							name: __( 'an image' ),
-						} }
-						onSelect={ setCover } />
-				) }
-
-				{ !! coverUrl && (
-					<div className="book-review-block__cover-wrapper">
-						<img
-							alt={ alt }
-							className="book-review-block__cover"
-							src={ coverUrl } />
-					</div>
-				) }
-
-				<div className="book-review-block__details">
-					<RichText
-						onChange={ updateValue( 'book_review_title' ) }
-						placeholder={ __( 'Title' ) }
-						value={ book_review_title ? book_review_title : title }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_series' ) }
-						placeholder={ __( 'Series' ) }
-						value={ book_review_series ? book_review_series : series }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_author' ) }
-						placeholder={ __( 'Author' ) }
-						value={ book_review_author ? book_review_author : author }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_genre' ) }
-						placeholder={ __( 'Genre' ) }
-						value={ book_review_genre ? book_review_genre : genre }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_publisher' ) }
-						placeholder={ __( 'Publisher' ) }
-						value={ book_review_publisher ? book_review_publisher : publisher }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_release_date' ) }
-						placeholder={ __( 'Release Date' ) }
-						value={ book_review_release_date ? book_review_release_date : releaseDate }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_format' ) }
-						placeholder={ __( 'Format' ) }
-						value={ book_review_format ? book_review_format : format }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_pages' ) }
-						placeholder={ __( 'Pages' ) }
-						value={ book_review_pages ? book_review_pages : pages }
-						keepPlaceholderOnFocus />
-
-					<RichText
-						onChange={ updateValue( 'book_review_source' ) }
-						placeholder={ __( 'Source' ) }
-						value={ book_review_source ? book_review_source : source }
-						keepPlaceholderOnFocus />
-
-					<div
-						className="book-review-block__rating"
-						onClick={ updateRating }>
-						{ ratings.map( ( { rating, title } ) => (
-							<span
-								className={ currentRating && currentRating >= rating ? 'on' : 'off' }
-								data-rating={ rating }
-								key={ rating }
-								title={ title }>
-								&#9734;
-							</span>
-						) ) }
-					</div>
-
-					<RichText
-						multiline="p"
-						onChange={ updateValue( 'book_review_summary' ) }
-						placeholder={ __( 'Description' ) }
-						value={ book_review_summary ? book_review_summary : summary }
-						wrapperClassName="book-review-block__description"
-						inlineToolbar
-						keepPlaceholderOnFocus />
-				</div>
-			</div>
-		);
-	},
-
+	edit,
 	save: () => {
 		return null;
 	},
-
 	deprecated: [ {
 		attributes: {
 			alt: {

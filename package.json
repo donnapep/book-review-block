@@ -4,14 +4,14 @@
   "main": "index.jsx",
   "dependencies": {
     "@wordpress/autop": "2.9.0",
-    "@wordpress/components": "^8.4.0",
+    "@wordpress/components": "10.0.0",
     "classnames": "2.2.6"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
     "@babel/plugin-proposal-class-properties": "7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "7.10.4",
-    "@wordpress/scripts": "6.2.0",
+    "@wordpress/scripts": "9.0.0",
     "autoprefixer": "9.8.5",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",

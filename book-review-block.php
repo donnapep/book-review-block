@@ -128,7 +128,7 @@ class Book_Review_Block {
 		// Styles
 		wp_enqueue_style(
 			$this->slug . '-editor',
-			$this->url . '/build/editor.css',
+			$this->url . '/build/index.css',
 			array( 'wp-edit-blocks' ),
 			$this->version
 		);
@@ -144,7 +144,7 @@ class Book_Review_Block {
 		// Styles
 		wp_enqueue_style(
 			$this->slug,
-			$this->url . '/build/style.css',
+			$this->url . '/build/style-index.css',
 			array(),
 			$this->version
 		);

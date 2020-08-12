@@ -5,10 +5,12 @@
  * Description: A Gutenberg block to add book details and a star rating to a book review post.
  * Author: Donna Peplinskie
  * Author URI: https://donnapeplinskie.com
- * Version: 1.4.0
+ * Version: 1.5.0
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Requires at least: 5.4
+ * Tested up to: 5.5
  */
 
 class Book_Review_Block {
@@ -68,9 +70,13 @@ class Book_Review_Block {
 	 * @access   private
 	 */
 	private function __construct() {
-		$this->version = '1.4.0';
+		$this->version = '1.5.0';
 		$this->slug    = 'book-review-block';
 		$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
+
+		require_once plugin_dir_path( __FILE__ ) . 'includes/book-review-block-settings-controller.php';
+		$this->controller = new Book_Review_Block_REST_Controller();
+		$this->controller->init();
 
 		add_action( 'init', array( $this, 'init_block' ) );
 	}
@@ -99,6 +105,7 @@ class Book_Review_Block {
 		$this->register_meta_field( 'book_review_series' );
 		$this->register_meta_field( 'book_review_author' );
 		$this->register_meta_field( 'book_review_genre' );
+		$this->register_meta_field( 'book_review_isbn' );
 		$this->register_meta_field( 'book_review_publisher' );
 		$this->register_meta_field( 'book_review_release_date' );
 		$this->register_meta_field( 'book_review_format' );

@@ -10,3 +10,17 @@
 		outline: none;
 	}
 }
+
+.wp-block[data-type="book-review-block/book-review"] .components-placeholder__instructions .components-external-link {
+	display: inline-block;
+	margin: 1em auto;
+	text-decoration: none;
+}
+
+.book-review-block__save-api-key {
+	margin-bottom: 0;
+}
+
+.book-review-block__sidebar-notice {
+	margin: 0 0 10px;
+}

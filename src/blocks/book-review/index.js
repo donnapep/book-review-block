@@ -2,6 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
+import { dispatch } from '@wordpress/data';
 
 const { registerBlockType } = wp.blocks;
 
@@ -20,6 +21,15 @@ const ratings = [
 	{ rating: 2, title: 'it was ok' },
 	{ rating: 1, title: 'did not like it' },
 ];
+
+// Added in Gutenberg 3.1, @wordpress/data ??.
+dispatch( 'core' ).addEntities( [
+	{
+		baseURL: '/book-review-block/v1/settings',
+		kind: 'book-review-block/v1',
+		name: 'settings',
+	},
+] );
 
 registerBlockType( 'book-review-block/book-review', {
 	title: 'Review',
@@ -62,6 +72,11 @@ registerBlockType( 'book-review-block/book-review', {
 			type: 'string',
 			source: 'meta',
 			meta: 'book_review_genre',
+		},
+		book_review_isbn: {
+			type: 'string',
+			source: 'meta',
+			meta: 'book_review_isbn',
 		},
 		book_review_pages: {
 			type: 'string',

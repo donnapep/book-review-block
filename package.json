@@ -1,9 +1,10 @@
 {
   "name": "book-review-block",
-  "version": "1.4.0",
-  "main": "index.jsx",
+  "version": "1.5.0",
+  "main": "index.js",
   "dependencies": {
     "@wordpress/autop": "2.9.0",
+    "@wordpress/block-editor": "^4.3.3",
     "@wordpress/components": "10.0.1",
     "classnames": "2.2.6"
   },

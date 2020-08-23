@@ -6,11 +6,7 @@ import { range } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { PanelBody, RangeControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
 import { ENTER } from '@wordpress/keycodes';
-
-const { BlockControls } = wp.editor;
 
 /**
  * Internal dependencies

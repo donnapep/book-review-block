@@ -1,32 +1,29 @@
 === Book Review Block ===
 Contributors: donnapep
-Tags: gutenberg, block, blog, book, book blog, book blogger, book blogging, book review, rating, review
+Tags: book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.4
 Tested up to: 5.5
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A Gutenberg block to add book details and a star rating to a book review post.
+A block to add book details and a star rating to a book review.
 
 == Description ==
 
-Book Review Block enables you to add details such as title, author, cover photo, star rating and more to each of your book reviews.
+Book Review Block enables you to add details such as title, author, cover image, star rating and more to all of your book reviews.
+
+= Save Time =
+Book Review Block saves you valuable time when writing your reviews. No more copy and paste or manually entering the details of a book. Instead, you provide the ISBN, and the block automatically fills in information like title, author, and even the cover image.
+
+= Increase Traffic =
+Book Review Block adds Schema markup to the HTML. This can help increase site traffic by ensuring your Google search results stand out from the rest.
 
 == Installation ==
 
-1. Install and activate [Gutenberg](https://wordpress.org/plugins/gutenberg/).
-1. Install and activate Book Review Block.
-1. Add the *Book Review* block in the Gutenberg editor.
-
-OR
-
-1. Install and activate [Gutenberg](https://wordpress.org/plugins/gutenberg/).
-1. Download the Book Review Block plugin and extract it.
-1. Upload the `book-review-block` folder to the `/wp-content/plugins/` directory on your server.
-1. Activate the plugin through the *Plugins* menu.
-1. Add the *Book Review* block in the Gutenberg editor.
+1. In the editor, open the block inserter and search for *Book Review Block*.
+1. Click the *Add Block* button.
 
 == Screenshots ==
 
@@ -34,6 +31,12 @@ OR
 2. Selected State
 
 == Changelog ==
+
+= 1.5.1 =
+* Tweak: Add help text to ISBN setting
+* Fix: API Key not saving in some cases
+* Fix: Broken rating on Twenty Twenty theme
+* Fix: Add missing translation strings
 
 = 1.5.0 =
 * New: Get book details from Google Books API

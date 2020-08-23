@@ -2,12 +2,6 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { compose } from '@wordpress/compose';
-import { useEntityProp } from '@wordpress/core-data';
-import { dispatch, withSelect } from '@wordpress/data';
-import { dateI18n } from '@wordpress/date';
-import { Fragment, useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 import {
 	BlockControls,
 	InspectorControls,
@@ -18,24 +12,29 @@ import {
 } from '@wordpress/block-editor';
 import {
 	Button,
-	Dashicon,
 	ExternalLink,
 	Notice,
 	PanelBody,
-	PanelRow,
 	Spinner,
 	TextControl,
 	Toolbar,
 } from '@wordpress/components';
+import { compose } from '@wordpress/compose';
+import { useEntityProp } from '@wordpress/core-data';
+import { dispatch, withSelect } from '@wordpress/data';
+import { dateI18n } from '@wordpress/date';
+import { Fragment, useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+
 /**
  * Internal dependencies
  */
 import { Rating } from './rating';
-import { BookReviewBlockIcon } from './icon';
 
 function BookReviewBlock( {
 	attributes,
 	className,
+	isRequesting,
 	isSelected,
 	setAttributes,
 	settings,
@@ -85,16 +84,6 @@ function BookReviewBlock( {
 	const [ apiKey, setApiKey ] = useState( '' );
 	const [ siteFormat ] = useEntityProp( 'root', 'site', 'date_format' );
 
-	const setupInstructions = (
-		<Fragment>
-			{ __( 'This block uses the Google Books API to automatically populate the details of a book from an ISBN. In order to take advantage of this feature, you must first sign up for and enter an API key. ', 'book-review-block' ) }
-			<br />
-			<ExternalLink href="https://console.developers.google.com/flows/enableapi?apiid=books.googleapis.com&keyType=CLIENT_SIDE&reusekey=true">
-				{ __( 'Get an API key.', 'book-review-block' ) }
-			</ExternalLink>
-		</Fragment>
-	);
-
 	const apiKeyHelperText = (
 		<Fragment>
 			<ExternalLink href="https://console.developers.google.com/flows/enableapi?apiid=books.googleapis.com&keyType=CLIENT_SIDE&reusekey=true">
@@ -108,14 +97,14 @@ function BookReviewBlock( {
 	);
 
 	useEffect( () => {
-		if ( ! settings || ! settings.book_review_api_key ) {
+		if ( isRequesting ) {
 			return;
 		}
 
 		if ( settings && settings.book_review_api_key ) {
 			setApiKey( settings.book_review_api_key );
 		}
-	}, [ settings ] );
+	}, [ isRequesting ] );
 
 	const getBookDetails = async () => {
 		const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${ book_review_isbn }&key=${ encodeURIComponent( apiKey ) }`;
@@ -254,6 +243,7 @@ function BookReviewBlock( {
 						) }
 
 						<TextControl
+							help={ __( 'Enter the ISBN to automatically fill in the book details. You will need to have an API key first.', 'book-review-block' ) }
 							placeholder={ __( 'ISBN', 'book-review-block' ) }
 							value={ book_review_isbn ? book_review_isbn : '' }
 							onChange={ updateValue( 'book_review_isbn' ) }
@@ -306,10 +296,10 @@ function BookReviewBlock( {
 					accept="image/*"
 					allowedTypes={ [ 'image' ] }
 					icon="format-image"
-					instructions={ __( 'Upload or insert book cover from media library' ) }
+					instructions={ __( 'Upload or insert book cover from media library', 'book-review-block' ) }
 					labels={ {
-						title: __( 'Book Cover' ),
-						name: __( 'an image' ),
+						title: __( 'Book Cover', 'book-review-block' ),
+						name: __( 'an image', 'book-review-block' ),
 					} }
 					onSelect={ setCover } />
 			) }
@@ -326,55 +316,55 @@ function BookReviewBlock( {
 			<div className="book-review-block__details">
 				<RichText
 					onChange={ updateValue( 'book_review_title' ) }
-					placeholder={ __( 'Title' ) }
+					placeholder={ __( 'Title', 'book-review-block' ) }
 					value={ book_review_title ? book_review_title : title }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_series' ) }
-					placeholder={ __( 'Series' ) }
+					placeholder={ __( 'Series', 'book-review-block' ) }
 					value={ book_review_series ? book_review_series : series }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_author' ) }
-					placeholder={ __( 'Author' ) }
+					placeholder={ __( 'Author', 'book-review-block' ) }
 					value={ book_review_author ? book_review_author : author }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_genre' ) }
-					placeholder={ __( 'Genre' ) }
+					placeholder={ __( 'Genre', 'book-review-block' ) }
 					value={ book_review_genre ? book_review_genre : genre }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_publisher' ) }
-					placeholder={ __( 'Publisher' ) }
+					placeholder={ __( 'Publisher', 'book-review-block' ) }
 					value={ book_review_publisher ? book_review_publisher : publisher }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_release_date' ) }
-					placeholder={ __( 'Release Date' ) }
+					placeholder={ __( 'Release Date', 'book-review-block' ) }
 					value={ book_review_release_date ? book_review_release_date : releaseDate }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_format' ) }
-					placeholder={ __( 'Format' ) }
+					placeholder={ __( 'Format', 'book-review-block' ) }
 					value={ book_review_format ? book_review_format : format }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_pages' ) }
-					placeholder={ __( 'Pages' ) }
+					placeholder={ __( 'Pages', 'book-review-block' ) }
 					value={ book_review_pages ? book_review_pages : pages }
 					keepPlaceholderOnFocus />
 
 				<RichText
 					onChange={ updateValue( 'book_review_source' ) }
-					placeholder={ __( 'Source' ) }
+					placeholder={ __( 'Source', 'book-review-block' ) }
 					value={ book_review_source ? book_review_source : source }
 					keepPlaceholderOnFocus />
 
@@ -383,7 +373,7 @@ function BookReviewBlock( {
 				<RichText
 					multiline="p"
 					onChange={ updateValue( 'book_review_summary' ) }
-					placeholder={ __( 'Description' ) }
+					placeholder={ __( 'Description', 'book-review-block' ) }
 					value={ book_review_summary ? book_review_summary : summary }
 					className="book-review-block__description"
 					inlineToolbar
@@ -398,7 +388,7 @@ export default compose( [
 		const { isResolving } = wp.data.select( 'core/data' );
 
 		return {
-			// isRequesting: isResolving( 'core', 'getEntityRecord', [ 'book-review-block/v1', 'settings' ] ),
+			isRequesting: isResolving( 'core', 'getEntityRecord', [ 'book-review-block/v1', 'settings' ] ),
 			settings: select( 'core' ).getEntityRecord( 'book-review-block/v1', 'settings' ),
 		};
 	} ),

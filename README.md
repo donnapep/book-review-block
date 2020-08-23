@@ -1,20 +1,17 @@
 # Book Review Block #
 
-Book Review Block enables you to add details such as title, author, cover photo, a star rating and more to each of your book reviews.
+Book Review Block enables you to add details such as title, author, cover image, star rating and more to all of your book reviews.
+
+## Save Time ##
+Book Review Block saves you valuable time when writing your reviews. No more copy and paste or manually entering the details of a book. Instead, you provide the ISBN, and the block automatically fills in information like title, author, and even the cover image.
+
+## Increase Traffic ##
+Book Review Block adds Schema markup to the HTML. This can help increase site traffic by ensuring your Google search results stand out from the rest.
 
 ## Installation ##
 
-1. Install and activate [Gutenberg](https://wordpress.org/plugins/gutenberg/).
-1. Install and activate Book Review Block.
-1. Add the *Book Review* block in the Gutenberg editor.
-
-OR
-
-1. Install and activate [Gutenberg](https://wordpress.org/plugins/gutenberg/).
-1. Download the Book Review Block plugin and extract it.
-1. Upload the `book-review-block` folder to the `/wp-content/plugins/` directory on your server.
-1. Activate the plugin through the *Plugins* menu.
-1. Add the *Book Review* block in the Gutenberg editor.
+1. In the editor, open the block inserter and search for *Book Review Block*.
+1. Click the *Add Block* button.
 
 ## Screenshots ##
 

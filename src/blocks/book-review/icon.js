@@ -3,7 +3,7 @@
  */
 import { Icon, Path, SVG } from '@wordpress/components';
 
-export const BookReviewBlockIcon = className => (
+export const BlockIcon = className => (
 	<Icon
 		className={ className }
 		icon={

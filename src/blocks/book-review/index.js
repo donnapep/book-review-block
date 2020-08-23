@@ -3,6 +3,7 @@
  */
 import classnames from 'classnames';
 import { dispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 const { registerBlockType } = wp.blocks;
 
@@ -12,17 +13,16 @@ const { registerBlockType } = wp.blocks;
 import './editor.scss';
 import './style.scss';
 import edit from './edit';
-import { BookReviewBlockIcon } from './icon';
+import { BlockIcon } from './icon';
 
 const ratings = [
-	{ rating: 5, title: 'it was amazing' },
-	{ rating: 4, title: 'really liked it' },
-	{ rating: 3, title: 'liked it' },
-	{ rating: 2, title: 'it was ok' },
-	{ rating: 1, title: 'did not like it' },
+	{ rating: 5 },
+	{ rating: 4 },
+	{ rating: 3 },
+	{ rating: 2 },
+	{ rating: 1 },
 ];
 
-// Added in Gutenberg 3.1, @wordpress/data ??.
 dispatch( 'core' ).addEntities( [
 	{
 		baseURL: '/book-review-block/v1/settings',
@@ -32,10 +32,10 @@ dispatch( 'core' ).addEntities( [
 ] );
 
 registerBlockType( 'book-review-block/book-review', {
-	title: 'Review',
-	description: 'Add book details such as title, author, publisher and cover image to enhance your review posts.',
-	icon: BookReviewBlockIcon,
-	category: 'book-review',
+	title: __( 'Book Review', 'book-review-block' ),
+	description: __( 'Add details such as title, author, cover image, star rating and more to all of your book reviews.', 'book-review-block' ),
+	icon: BlockIcon,
+	category: 'widgets',
 	supports: {
 		anchor: true,
 		multiple: false,

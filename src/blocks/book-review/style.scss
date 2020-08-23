@@ -49,6 +49,7 @@
 	.book-review-block__rating-button span svg,
 	.book-review-block__review-rating > span span svg {
 		flex-shrink: 0;
+		max-width: none; // Fix for Twenty Twenty.
 	}
 
 	// Tweak 2nd half of star.

@@ -7,7 +7,7 @@ export const BlockIcon = className => (
 	<Icon
 		className={ className }
 		icon={
-			<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+			<svg viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
 				<path d="M2.3,17.3h9.3c0.1,0,0.3,0,0.4,0.1l5.9,4.2c0.3,0.2,0.7,0,0.7-0.3v-3.7c0-0.2,0.2-0.4,0.4-0.4H22 c1.1,0,2-0.9,2-2V2.5c0-1.2-0.7-2.2-2-2.2H2.3C0.7,0.2,0,0.9,0,2.5v12.3C0,16.3,0.7,17.3,2.3,17.3z" />
 				<polygon
 					fill="#ffffff"
@@ -33,7 +33,7 @@ export const StarIcon = props => {
 
 	return (
 		<SVG
-			xmlns="http://www.w3.org/2000/svg"
+			xmlns="https://www.w3.org/2000/svg"
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"

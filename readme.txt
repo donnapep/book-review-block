@@ -3,8 +3,8 @@ Contributors: donnapep
 Tags: book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.4
-Tested up to: 5.5
-Stable tag: 1.5.1
+Tested up to: 5.6
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,10 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 2. Selected State
 
 == Changelog ==
+
+= 2.0.0 =
+* New: Refactored to use inner blocks
+* New: Added the ability to show labels for book metadata
 
 = 1.5.1 =
 * Tweak: Add help text to ISBN setting

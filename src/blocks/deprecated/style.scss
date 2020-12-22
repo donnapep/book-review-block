@@ -1,0 +1,32 @@
+.book-review-block__cover-wrapper {
+	float: left;
+	margin: 0.5em 1em 0.5em 0;
+}
+
+.book-review-block__cover {
+	max-width: 100%;
+}
+
+.book-review-block__details > span {
+	display: block;
+}
+
+/* Deprecated v1 CSS */
+.book-review-block__rating:not(.book-review-block__review-rating) {
+	direction: rtl;
+	text-align: left;
+	unicode-bidi: bidi-override;
+}
+
+.book-review-block__rating:not(.book-review-block__review-rating) > span {
+	color: #EBA845;
+	display: inline-block;
+	font-size: 20px;
+	position: relative;
+	width: 1.0em;
+}
+
+.book-review-block__rating:not(.book-review-block__review-rating) > span.on:before {
+	content: "\2605";
+	position: absolute;
+}

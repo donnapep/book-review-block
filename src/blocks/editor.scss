@@ -1,9 +1,14 @@
-/* Editor styles */
+.book-review-block {
+	.block-editor-block-list__block {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
 .book-review-block__rating-button {
 	cursor: pointer;
 }
 
-// Control symbol outline on focus.
 .book-review-block__rating-button {
 	&:focus {
 		border: none;

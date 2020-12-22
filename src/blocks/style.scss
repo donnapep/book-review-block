@@ -1,0 +1,50 @@
+@import 'deprecated/style.scss';
+
+.book-review-block {
+	overflow: hidden;
+
+	&.has-background {
+		padding: 20px 20px;
+	}
+}
+
+/**
+ * Meta
+ */
+.book-review-block__meta-item-label {
+	font-weight: 700;
+	margin-right: 5px;
+}
+
+.book-review-block__meta-item-value {
+	display: inline;
+}
+
+/**
+ * Rating
+ */
+.book-review-block__rating-button {
+	margin-right: 0.3em;
+}
+
+// There are two stars in every whole star, but they should be cropped as halves.
+.book-review-block__rating-button span {
+	display: inline-flex;
+	overflow: hidden;
+	width: 12px;
+}
+
+.book-review-block__rating-button span svg {
+	flex-shrink: 0;
+	max-width: none; // Fix for Twenty Twenty.
+}
+
+// Tweak 2nd half of star.
+.book-review-block__rating-button span:nth-child(even) {
+	justify-content: flex-end;
+}
+
+.book-review-block__rating-button .is-rating-unfilled {
+	fill-opacity: 0;
+	stroke-width: 2px;
+}

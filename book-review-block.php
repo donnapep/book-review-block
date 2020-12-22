@@ -5,13 +5,19 @@
  * Description: A Gutenberg block to add book details and a star rating to a book review post.
  * Author: Donna Peplinskie
  * Author URI: https://donnapeplinskie.com
- * Version: 1.5.1
+ * Version: 2.0.0
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Requires at least: 5.4
- * Tested up to: 5.5
+ * Tested up to: 5.6
+ * Requires PHP: 7.0
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Book_Review_Block {
 	/**
@@ -70,7 +76,7 @@ class Book_Review_Block {
 	 * @access   private
 	 */
 	private function __construct() {
-		$this->version = '1.5.1';
+		$this->version = '2.0.0';
 		$this->slug    = 'book-review-block';
 		$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
@@ -88,6 +94,7 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function init_block() {
+		// Register block.
 		if ( function_exists( 'register_block_type' ) ) {
 			register_block_type( 'book-review-block/book-review', array(
 				'editor_script' => $this->slug,
@@ -115,7 +122,7 @@ class Book_Review_Block {
 		$this->register_meta_field( 'book_review_summary' );
 	}
 
-		/**
+	/**
 	 * Enqueues block assets for use within Gutenberg.
 	 *
 	 * @since  1.0.0
@@ -128,7 +135,7 @@ class Book_Review_Block {
 		wp_enqueue_script(
 			$this->slug,
 			$this->url . '/build/index.js',
-			array( 'wp-blocks', 'wp-components', 'wp-editor' ),
+			array( 'wp-blocks', 'wp-components', 'wp-core-data', 'wp-data', 'wp-editor', 'wp-element' ),
 			$asset_file['version']
 		);
 
@@ -167,10 +174,40 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function render_book_review( $attributes, $content ) {
+		// Markup for the block is stored in post content (i.e. deprecated v1 and current version).
 		if ( ! empty( $content ) ) {
+			$img_element = '<img ';
+			$img_position = strpos( $content, $img_element );
+
+			// Add schema.org markup to first image element.
+			if ( $img_position ) {
+				$content = substr_replace(
+					$content,
+					'itemprop="image" ',
+					$img_position + strlen( $img_element ),
+					0
+				);
+			}
+
+			$review_rating_element = '<div itemscope itemtype="https://schema.org/Rating" itemprop="reviewRating"';
+			$review_rating_element_position = strpos( $content, $review_rating_element );
+
+			// Add schema.org markup for the author of the review.
+			if ( $review_rating_element_position ) {
+				$content = substr_replace(
+					$content,
+					'<span itemscope itemtype="https://schema.org/Person" itemprop="author">' .
+						'<meta itemprop="name" content="' . esc_attr( get_the_author() ) . '"/>' .
+					'</span>',
+					$review_rating_element_position,
+					0
+				);
+			}
+
 			return $content;
 		}
 
+		// Markup for the block is stored in post meta (i.e. deprecated v2).
 		if ( in_the_loop() ) {
 			$title = $this->get_post_meta( 'book_review_title' );
 			$cover_url = $this->get_post_meta( 'book_review_cover_url' );
@@ -192,7 +229,7 @@ class Book_Review_Block {
 			}
 
 			ob_start();
-			include( 'partials/book-review.php' );
+			include( 'src/blocks/deprecated/v2/book-review.php' );
 			return ob_get_clean();
 		}
 	}
@@ -206,7 +243,7 @@ class Book_Review_Block {
 	 * @access private
 	 */
 	private function register_meta_field( $meta_key ) {
-		register_meta( 'post', $meta_key, array(
+		register_post_meta( 'post', $meta_key, array(
 			'show_in_rest' => true,
 			'single' => true,
 		) );
@@ -239,7 +276,7 @@ class Book_Review_Block {
 		$classname_whole = ( $current_rating >= ( $rating - 0.5 ) ) ? '' : 'is-rating-unfilled';
 		$classname_half  = ( $current_rating >= $rating ) ? '' : 'is-rating-unfilled';
 
-		$html = "<span>" .
+		$html = "<span class='book-review-block__rating-button' role='button'>" .
 			"<span>" .
 				"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>" .
 					"<path class='{$classname_whole}' fill='#eba845' stroke='#eba845' d='M12,17.3l6.2,3.7l-1.6-7L22,9.2l-7.2-0.6L12,2L9.2,8.6L2,9.2L7.5,14l-1.6,7L12,17.3z' />" .

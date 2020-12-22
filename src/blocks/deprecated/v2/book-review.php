@@ -106,10 +106,6 @@
 				<meta itemprop="name"
 					content="<?php echo esc_attr( get_the_author() ); ?>">
 			</span>
-			<meta itemprop="datePublished"
-				content="<?php esc_attr( the_date( 'Y-m-d' ) ); ?>">
-			<meta itemprop="headline"
-				content="<?php echo esc_attr( get_the_title() ); ?>">
 
 			<!-- Rating -->
 			<?php if ( ! empty( $rating_html ) ): ?>
@@ -117,28 +113,31 @@
 					class="book-review-block__rating book-review-block__review-rating">
 					<meta itemprop="ratingValue"
 						content="<?php echo esc_attr( $this->get_post_meta( 'book_review_rating' ) ); ?>">
-					<?php
-						echo wp_kses(
-							implode( $rating_html ),
-							array_merge(
-								wp_kses_allowed_html( 'post' ),
-								array(
-									'svg'   => array(
-										'height'  => array(),
-										'viewbox' => array(),
-										'width'   => array(),
-										'xmlns'   => array(),
-									),
-									'path'  => array(
-										'class'  => array(),
-										'd'      => array(),
-										'fill'   => array(),
-										'stroke' => array(),
-									),
+
+					<div className="book-review-block__rating-buttons">
+						<?php
+							echo wp_kses(
+								implode( $rating_html ),
+								array_merge(
+									wp_kses_allowed_html( 'post' ),
+									array(
+										'svg'   => array(
+											'height'  => array(),
+											'viewbox' => array(),
+											'width'   => array(),
+											'xmlns'   => array(),
+										),
+										'path'  => array(
+											'class'  => array(),
+											'd'      => array(),
+											'fill'   => array(),
+											'stroke' => array(),
+										),
+									)
 								)
-							)
-						);
-					?>
+							);
+						?>
+					</div>
 				</div>
 			<?php endif; ?>
 

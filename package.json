@@ -11,9 +11,9 @@
     "classnames": "2.2.6"
   },
   "devDependencies": {
-    "@babel/core": "7.10.5",
-    "@babel/plugin-proposal-class-properties": "7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
+    "@babel/core": "7.12.17",
+    "@babel/plugin-proposal-class-properties": "7.12.13",
+    "@babel/plugin-proposal-object-rest-spread": "7.12.13",
     "@wordpress/scripts": "12.1.0",
     "babel-eslint": "10.1.0",
     "babel-plugin-transform-react-jsx": "6.24.1",

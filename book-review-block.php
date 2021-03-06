@@ -94,6 +94,8 @@ class Book_Review_Block {
 			$asset_file['version']
 		);
 
+		wp_set_script_translations( $this->slug, 'book-review-block' );
+
 		wp_register_style(
 			$this->slug . '-editor',
 			plugins_url( 'build/index.css', __FILE__ ),

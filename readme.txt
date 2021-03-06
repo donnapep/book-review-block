@@ -32,6 +32,14 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 
 == Changelog ==
 
+= 2.1.0 =
+* New: Add block preview
+* Tweak: Add description to parent block
+* Tweak: Add more block keywords
+* Tweak: Register scripts and styles instead of enqueueing them
+* Tweak: Use block.json for block configuration
+* Fix: Update block category of inner blocks
+
 = 2.0.0 =
 * New: Refactored to use inner blocks
 * New: Added the ability to show labels for book metadata

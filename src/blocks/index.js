@@ -12,12 +12,15 @@ import './editor.scss';
 import './style.scss';
 import deprecatedV1 from './deprecated/v1';
 import deprecatedV2 from './deprecated/v2';
-import edit from './edit';
 import icon from './icon';
+import metadata from './block.json';
+import edit from './edit';
 import save from './save';
 import './description';
 import './metadata';
 import './rating';
+
+const { name, ...settings } = metadata;
 
 dispatch( 'core' ).addEntities( [
 	{
@@ -38,29 +41,11 @@ dispatch( 'core' ).addEntities( [
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'book-review-block/book-review', {
-	title: __( 'Book Review', 'book-review-block' ),
-	description: __(
-		'Add details such as title, author, cover image, star rating and more to your book reviews.',
-		'book-review-block'
-	),
+registerBlockType( name, {
+	...settings,
 	icon: icon,
-	category: 'widgets',
-	keywords: [
-		__( 'book report', 'book-review-block' ),
-		__( 'literature', 'book-review-block' ),
-		__( 'read', 'book-review-block' ),
-	],
 	supports: {
 		align: [ 'wide', 'full' ],
-	},
-	attributes: {
-		backgroundColor: {
-			type: 'string',
-		},
-		isbn: {
-			type: 'string',
-		}
 	},
 	example: {
 		innerBlocks: [

@@ -7,29 +7,14 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-const attributes = {
-	rating: {
-		type: 'number',
-		default: 1,
-	},
-};
+const { name, ...settings } = metadata;
 
-registerBlockType( 'book-review-block/rating', {
-	title: __( 'Rating', 'book-review-block' ),
-	description: __(
-		'Add a star rating.',
-		'book-review-block'
-	),
-	keywords: [
-		'book',
-	],
-	icon: 'star-filled',
-	category: 'widgets',
-	attributes,
+registerBlockType( name, {
+	...settings,
 	edit,
 	save,
-	parent: [ 'book-review-block/book-review' ],
 } );

@@ -7,33 +7,14 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
-const attributes = {
-	summary: {
-		type: 'string',
-		source: 'html',
-		selector: '.book-review-block__description',
-		multiline: 'p',
-	},
-};
+const { name, ...settings } = metadata;
 
-registerBlockType( 'book-review-block/description', {
-	title: __( 'Description', 'book-review-block' ),
-	description: __(
-		'Add a brief description of the book.',
-		'book-review-block'
-	),
-	keywords: [
-		'book',
-		'summary',
-		'synopsis',
-	],
-	icon: 'media-text',
-	category: 'widgets',
-	attributes,
+registerBlockType( name, {
+	...settings,
 	edit,
 	save,
-	parent: [ 'book-review-block/book-review' ],
 } );

@@ -40,6 +40,10 @@ dispatch( 'core' ).addEntities( [
  */
 registerBlockType( 'book-review-block/book-review', {
 	title: __( 'Book Review', 'book-review-block' ),
+	description: __(
+		'Add details such as title, author, cover image, star rating and more to your book reviews.',
+		'book-review-block'
+	),
 	icon: icon,
 	category: 'widgets',
 	keywords: [

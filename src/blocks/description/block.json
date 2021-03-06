@@ -6,7 +6,7 @@
 	"icon": "media-text",
 	"parent": [ "book-review-block/book-review" ],
 	"keywords": [ "book", "summary", "synopsis" ],
-	"textDomain": "book-review-block",
+	"textdomain": "book-review-block",
 	"attributes": {
 		"summary": {
 			"type": "string",

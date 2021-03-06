@@ -6,7 +6,7 @@
 	"icon": "star-filled",
 	"parent": [ "book-review-block/book-review" ],
 	"keywords": [ "book", "star" ],
-	"textDomain": "book-review-block",
+	"textdomain": "book-review-block",
 	"attributes": {
 		"rating": {
 			"type": "number",

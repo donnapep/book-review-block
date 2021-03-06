@@ -7,7 +7,7 @@
 	"parent": [ "book-review-block/book-review" ],
 	"keywords": [ "book", "author", "format", "genre", "pages", "publisher", "release date", "series",
 		"source", "title" ],
-	"textDomain": "book-review-block",
+	"textdomain": "book-review-block",
 	"attributes": {
 		"author": {
 			"type": "string",

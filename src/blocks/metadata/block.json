@@ -1,0 +1,74 @@
+{
+	"name": "book-review-block/metadata",
+	"title": "Metadata",
+	"description": "Add book details such as title and author.",
+	"category": "widgets",
+	"icon": "info",
+	"parent": [ "book-review-block/book-review" ],
+	"keywords": [ "book", "author", "format", "genre", "pages", "publisher", "release date", "series",
+		"source", "title" ],
+	"textdomain": "book-review-block",
+	"attributes": {
+		"author": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-author .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"format": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-format .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"genre": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-genre .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"pages": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-pages .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"publisher": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-publisher .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"releaseDate": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-release-date .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"series": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-series .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"source": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-source .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__meta-item-title .book-review-block__meta-item-value",
+			"default": ""
+		},
+		"showLabels": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"editorStyle": "file:../../../build/index.css",
+	"style": "file:../../../build/style-index.css"
+}

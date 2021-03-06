@@ -1,0 +1,21 @@
+{
+	"name": "book-review-block/description",
+	"title": "Description",
+	"description": "Add a brief description of the book.",
+	"category": "widgets",
+	"icon": "media-text",
+	"parent": [ "book-review-block/book-review" ],
+	"keywords": [ "book", "summary", "synopsis" ],
+	"textdomain": "book-review-block",
+	"attributes": {
+		"summary": {
+			"type": "string",
+			"source": "html",
+			"selector": ".book-review-block__description",
+			"multiline": "p"
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"editorStyle": "file:../../../build/index.css",
+	"style": "file:../../../build/style-index.css"
+}

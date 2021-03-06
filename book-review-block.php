@@ -5,7 +5,7 @@
  * Description: A Gutenberg block to add book details and a star rating to a book review post.
  * Author: Donna Peplinskie
  * Author URI: https://donnapeplinskie.com
- * Version: 2.0.0
+ * Version: 2.1.0
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -39,15 +39,6 @@ class Book_Review_Block {
 	private $slug;
 
 	/**
-	 * The base URL path (without trailing slash).
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $url    The base URL path of this plugin.
-	 */
-	private $url;
-
-	/**
 	 * The version of this plugin.
 	 *
 	 * @since    1.0.0
@@ -76,9 +67,8 @@ class Book_Review_Block {
 	 * @access   private
 	 */
 	private function __construct() {
-		$this->version = '2.0.0';
+		$this->version = '2.1.0';
 		$this->slug    = 'book-review-block';
-		$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
 		require_once plugin_dir_path( __FILE__ ) . 'includes/book-review-block-settings-controller.php';
 		$this->controller = new Book_Review_Block_REST_Controller();
@@ -94,18 +84,39 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function init_block() {
-		// Register block.
-		if ( function_exists( 'register_block_type' ) ) {
-			register_block_type( 'book-review-block/book-review', array(
-				'editor_script' => $this->slug,
-				'editor_style'  => $this->slug . '-editor',
-				'render_callback' => array( $this, 'render_book_review' ),
-				'style' => $this->slug,
-			) );
+		// Automatically load dependencies and version.
+		$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
 
-			add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
-			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
-		}
+		wp_register_script(
+			$this->slug,
+			plugins_url( 'build/index.js', __FILE__ ),
+			$asset_file['dependencies'],
+			$asset_file['version']
+		);
+
+		wp_set_script_translations( $this->slug, 'book-review-block' );
+
+		wp_register_style(
+			$this->slug . '-editor',
+			plugins_url( 'build/index.css', __FILE__ ),
+			array( 'wp-edit-blocks' ),
+			$asset_file['version']
+		);
+
+		wp_register_style(
+			$this->slug,
+			plugins_url( 'build/style-index.css', __FILE__ ),
+			array(),
+			$asset_file['version']
+		);
+
+		// Register block.
+		register_block_type( 'book-review-block/book-review', array(
+			'editor_script' => $this->slug,
+			'editor_style'  => $this->slug . '-editor',
+			'style' => $this->slug,
+			'render_callback' => array( $this, 'render_book_review' ),
+		) );
 
 		$this->register_meta_field( 'book_review_cover_url' );
 		$this->register_meta_field( 'book_review_title' );
@@ -120,48 +131,6 @@ class Book_Review_Block {
 		$this->register_meta_field( 'book_review_source' );
 		$this->register_meta_field( 'book_review_rating' );
 		$this->register_meta_field( 'book_review_summary' );
-	}
-
-	/**
-	 * Enqueues block assets for use within Gutenberg.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 */
-	public function enqueue_block_editor_assets() {
-		$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
-
-		// Scripts
-		wp_enqueue_script(
-			$this->slug,
-			$this->url . '/build/index.js',
-			array( 'wp-blocks', 'wp-components', 'wp-core-data', 'wp-data', 'wp-editor', 'wp-element' ),
-			$asset_file['version']
-		);
-
-		// Styles
-		wp_enqueue_style(
-			$this->slug . '-editor',
-			$this->url . '/build/index.css',
-			array( 'wp-edit-blocks' ),
-			$this->version
-		);
-	}
-
-	/**
-	 * Enqueues block assets for use within Gutenberg, as well as on the front-end.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 */
-	public function enqueue_block_assets() {
-		// Styles
-		wp_enqueue_style(
-			$this->slug,
-			$this->url . '/build/style-index.css',
-			array(),
-			$this->version
-		);
 	}
 
 	/**

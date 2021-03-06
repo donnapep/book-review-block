@@ -1,0 +1,19 @@
+{
+	"name": "book-review-block/book-review",
+	"title": "Book Review",
+	"description": "Add details such as title, author, cover image, star rating and more to your book reviews.",
+	"category": "widgets",
+	"keywords": [ "book report", "literature", "literary critique", "read", "written work" ],
+	"textdomain": "book-review-block",
+	"attributes": {
+		"backgroundColor": {
+			"type": "string"
+		},
+		"isbn": {
+			"type": "string"
+		}
+	},
+	"editorScript": "file:../../build/index.js",
+	"editorStyle": "file:../../build/index.css",
+	"style": "file:../../build/style-index.css"
+}

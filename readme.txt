@@ -1,10 +1,10 @@
 === Book Review Block ===
 Contributors: donnapep
-Tags: book, book blog, book review, rating, review
+Tags: block, book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.4
 Tested up to: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,14 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 2. Selected State
 
 == Changelog ==
+
+= 2.1.0 =
+* New: Add block preview
+* Tweak: Add description to parent block
+* Tweak: Add more block keywords
+* Tweak: Register scripts and styles instead of enqueueing them
+* Tweak: Use block.json for block configuration
+* Fix: Update block category of inner blocks
 
 = 2.0.0 =
 * New: Refactored to use inner blocks

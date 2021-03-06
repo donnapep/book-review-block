@@ -1,0 +1,19 @@
+{
+	"name": "book-review-block/rating",
+	"title": "Rating",
+	"description": "Add a star rating.",
+	"category": "widgets",
+	"icon": "star-filled",
+	"parent": [ "book-review-block/book-review" ],
+	"keywords": [ "book", "star" ],
+	"textdomain": "book-review-block",
+	"attributes": {
+		"rating": {
+			"type": "number",
+			"default": 1
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"editorStyle": "file:../../../build/index.css",
+	"style": "file:../../../build/style-index.css"
+}

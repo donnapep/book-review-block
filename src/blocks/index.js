@@ -12,12 +12,15 @@ import './editor.scss';
 import './style.scss';
 import deprecatedV1 from './deprecated/v1';
 import deprecatedV2 from './deprecated/v2';
-import edit from './edit';
 import icon from './icon';
+import metadata from './block.json';
+import edit from './edit';
 import save from './save';
 import './description';
 import './metadata';
 import './rating';
+
+const { name, ...settings } = metadata;
 
 dispatch( 'core' ).addEntities( [
 	{
@@ -38,23 +41,49 @@ dispatch( 'core' ).addEntities( [
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'book-review-block/book-review', {
-	title: __( 'Book Review', 'book-review-block' ),
+registerBlockType( name, {
+	...settings,
 	icon: icon,
-	category: 'widgets',
-	keywords: [
-		__( 'read', 'book-review-block' ),
-	],
 	supports: {
 		align: [ 'wide', 'full' ],
 	},
-	attributes: {
-		backgroundColor: {
-			type: 'string',
-		},
-		isbn: {
-			type: 'string',
-		}
+	example: {
+		innerBlocks: [
+			{
+				name: 'core/image',
+				attributes: {
+					align: 'left',
+					height: 300,
+					url: 'http://books.google.com/books/content?id=sJdUAzLUNyAC&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+				},
+			},
+			{
+				name: 'book-review-block/metadata',
+				attributes: {
+					author: 'Suzanne Collins',
+					format: 'Hardcover',
+					genre: 'Young Adult',
+					pages: '374',
+					publisher: 'Scholastic Press',
+					releaseDate: 'September 14, 2008',
+					series: 'The Hunger Games #1',
+					source: ' ',
+					title: 'The Hunger Games',
+				},
+			},
+			{
+				name: 'book-review-block/rating',
+				attributes: {
+					rating: 4.5,
+				},
+			},
+			{
+				name: 'book-review-block/description',
+				attributes: {
+					summary: '<p>In a future North America, where the rulers of Panem maintain control through an annual televised survival competition pitting young people from each of the twelve districts against one another, sixteen-year-old Katniss\'s skills are put to the test when she voluntarily takes her younger sister\'s place.</p>',
+				},
+			},
+		],
 	},
 	edit,
 	save,

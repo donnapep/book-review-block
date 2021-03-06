@@ -27,7 +27,7 @@ registerBlockType( 'book-review-block/rating', {
 		'book',
 	],
 	icon: 'star-filled',
-	category: 'book-review',
+	category: 'widgets',
 	attributes,
 	edit,
 	save,

@@ -31,7 +31,7 @@ registerBlockType( 'book-review-block/description', {
 		'synopsis',
 	],
 	icon: 'media-text',
-	category: 'book-review',
+	category: 'widgets',
 	attributes,
 	edit,
 	save,

@@ -81,7 +81,7 @@ registerBlockType( 'book-review-block/metadata', {
 		'book',
 	],
 	icon: 'info',
-	category: 'book-review',
+	category: 'widgets',
 	attributes,
 	edit,
 	save,

@@ -47,6 +47,8 @@ registerBlockType( 'book-review-block/book-review', {
 	icon: icon,
 	category: 'widgets',
 	keywords: [
+		__( 'book report', 'book-review-block' ),
+		__( 'literature', 'book-review-block' ),
 		__( 'read', 'book-review-block' ),
 	],
 	supports: {

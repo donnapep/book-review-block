@@ -8,7 +8,7 @@
     "@wordpress/components": "12.0.8",
     "@wordpress/data": "4.26.8",
     "@wordpress/keycodes": "2.18.3",
-    "classnames": "2.2.6"
+    "classnames": "2.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.8",

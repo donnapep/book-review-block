@@ -2,6 +2,10 @@
   "name": "book-review-block",
   "version": "2.1.0",
   "main": "index.js",
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.5.5"
+  },
   "dependencies": {
     "@wordpress/autop": "2.12.2",
     "@wordpress/block-editor": "5.3.3",

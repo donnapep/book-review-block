@@ -162,8 +162,8 @@ function BookReviewBlock( {
 								dispatch( 'core/block-editor' ).updateBlockAttributes(
 									block.clientId,
 									{
-										// summary: volume.description ? '<p>' + volume.description + '</p>' : '',
-										summary: volume.description ? volume.description : '',
+										// Including <p> tag fixes the issue of the description not showing in the editor.
+										summary: volume.description ? '<p>' + volume.description + '</p>' : '',
 									}
 								);
 								break;

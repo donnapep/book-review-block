@@ -2,9 +2,9 @@
 Contributors: donnapep
 Tags: block, book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
-Requires at least: 5.4
-Tested up to: 5.6
-Stable tag: 2.1.0
+Requires at least: 5.7
+Tested up to: 5.9
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,10 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 2. Selected State
 
 == Changelog ==
+
+= 2.1.1 =
+* Fix: Broken description in editor
+* Fix: Add whitespace around book cover
 
 = 2.1.0 =
 * New: Add block preview

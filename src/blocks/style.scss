@@ -6,6 +6,37 @@
 	&.has-background {
 		padding: 20px 20px;
 	}
+
+	.wp-block-image {
+		margin: 0;
+
+		.alignleft,
+		.alignright {
+			margin: 0;
+			margin-bottom: 1em;
+		}
+
+		.alignleft {
+			margin-right: 1em;
+		}
+
+		.alignright {
+			margin-left: 1em;
+		}
+
+		.aligncenter {
+			margin-bottom: 1em;
+		}
+	}
+
+	// TODO: alignwide and alignfull are now styled the same, when in fact alignwide should have a bit
+	// of margin (at least on Twenty Twenty theme). This is not a huge deal though.
+	.alignwide,
+	.alignfull,
+	// Align none
+	.wp-block-image:not(.alignwide):not(.alignfull) {
+		margin-bottom: 1em;
+	}
 }
 
 /**

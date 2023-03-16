@@ -4,7 +4,7 @@
   "main": "index.js",
   "engines": {
     "node": "16.14.2",
-    "npm": "8.5.5"
+    "npm": "8.19.4"
   },
   "dependencies": {
     "@wordpress/autop": "3.5.0",

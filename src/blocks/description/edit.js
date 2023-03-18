@@ -27,8 +27,7 @@ const DescriptionEdit = ( { attributes, setAttributes } ) => {
 				onChange={ newSummary => setAttributes( { summary: newSummary } ) }
 				placeholder={ __( 'Description' ) }
 				value={ summary }
-				inlineToolbar
-				keepPlaceholderOnFocus />
+				inlineToolbar />
 		</div>
 	);
 }

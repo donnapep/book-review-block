@@ -83,8 +83,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'title' ) }
-						value={ title }
-						keepPlaceholderOnFocus />
+						value={ title } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-series">
@@ -103,8 +102,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'series' ) }
-						value={ series }
-						keepPlaceholderOnFocus />
+						value={ series } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-author">
@@ -123,8 +121,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'author' ) }
-						value={ author }
-						keepPlaceholderOnFocus />
+						value={ author } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-genre">
@@ -143,8 +140,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'genre' ) }
-						value={ genre }
-						keepPlaceholderOnFocus />
+						value={ genre } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-publisher">
@@ -163,8 +159,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'publisher' ) }
-						value={ publisher }
-						keepPlaceholderOnFocus />
+						value={ publisher } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-release-date">
@@ -183,8 +178,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ releaseDate => setAttributes( { releaseDate: releaseDate } ) }
-						value={ releaseDate }
-						keepPlaceholderOnFocus />
+						value={ releaseDate } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-format">
@@ -203,8 +197,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'format' ) }
-						value={ format }
-						keepPlaceholderOnFocus />
+						value={ format } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-pages">
@@ -223,8 +216,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'pages' ) }
-						value={ pages }
-						keepPlaceholderOnFocus />
+						value={ pages } />
 				</div>
 
 				<div className="book-review-block__meta-item book-review-block__meta-item-source">
@@ -243,8 +235,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						) }
 						className="book-review-block__meta-item-value"
 						onChange={ updateValue( 'source' ) }
-						value={ source }
-						keepPlaceholderOnFocus />
+						value={ source } />
 				</div>
 			</div>
 		</Fragment>

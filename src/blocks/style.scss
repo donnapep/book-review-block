@@ -10,32 +10,29 @@
 	.wp-block-image {
 		margin: 0;
 
-		.alignleft,
-		.alignright {
+		/* For some reason, block themes don't have a wrapper div around the figure element, so we
+		 need to account for that in CSS. */
+		.alignleft, &.alignleft,
+		.alignright, &.alignright {
 			margin: 0;
 			margin-bottom: 1em;
 		}
 
-		.alignleft {
+		.alignleft, &.alignleft {
+			float: left;
 			margin-right: 1em;
 		}
 
-		.alignright {
+		.alignright, &.alignright {
+			float: right;
 			margin-left: 1em;
 		}
 
-		.aligncenter {
+		.aligncenter, &.aligncenter {
+			margin-left: auto;
+			margin-right: auto;
 			margin-bottom: 1em;
 		}
-	}
-
-	// TODO: alignwide and alignfull are now styled the same, when in fact alignwide should have a bit
-	// of margin (at least on Twenty Twenty theme). This is not a huge deal though.
-	.alignwide,
-	.alignfull,
-	// Align none
-	.wp-block-image:not(.alignwide):not(.alignfull) {
-		margin-bottom: 1em;
 	}
 }
 

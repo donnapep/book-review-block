@@ -32,6 +32,9 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 
 == Changelog ==
 
+= 2.1.2 =
+* Fix: Book cover alignment on block themes
+
 = 2.1.1 =
 * Fix: Broken description in editor
 * Fix: Add whitespace around book cover

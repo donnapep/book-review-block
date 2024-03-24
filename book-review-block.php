@@ -134,7 +134,7 @@ class Book_Review_Block {
 	}
 
 	/**
-	 * Renders the book review block.
+	 * Renders the block where the markup is stored in post content (i.e. deprecated v1 and current version).
 	 *
 	 * @since  1.1.2
 	 * @param  array  $attributes Block attributes.
@@ -143,7 +143,6 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function render_book_review( $attributes, $content ) {
-		// Markup for the block is stored in post content (i.e. deprecated v1 and current version).
 		if ( ! empty( $content ) ) {
 			$img_element = '<img ';
 			$img_position = strpos( $content, $img_element );
@@ -176,31 +175,43 @@ class Book_Review_Block {
 			return $content;
 		}
 
-		// Markup for the block is stored in post meta (i.e. deprecated v2).
 		if ( in_the_loop() ) {
-			$title = $this->get_post_meta( 'book_review_title' );
-			$cover_url = $this->get_post_meta( 'book_review_cover_url' );
-			$series = $this->get_post_meta( 'book_review_series' );
-			$author = $this->get_post_meta( 'book_review_author' );
-			$genre = $this->get_post_meta( 'book_review_genre' );
-			$publisher = $this->get_post_meta( 'book_review_publisher' );
-			$release_date = $this->get_post_meta( 'book_review_release_date' );
-			$format = $this->get_post_meta( 'book_review_format' );
-			$pages = $this->get_post_meta( 'book_review_pages' );
-			$source = $this->get_post_meta( 'book_review_source' );
-			$summary = $this->get_post_meta( 'book_review_summary' );
-			$rating_html = array_map( array( $this, 'get_rating_html' ), array( 1, 2, 3, 4, 5 ) );
-
-			if ( isset( $attributes ) && isset( $attributes['backgroundColor'] ) ) {
-				$background_color = $attributes['backgroundColor'];
-			} else {
-				$background_color = '';
-			}
-
-			ob_start();
-			include( 'src/blocks/deprecated/v2/book-review.php' );
-			return ob_get_clean();
+			return $this->render_book_review_deprecated_v2( $attributes, $content );
 		}
+	}
+
+	/**
+	 * Renders the block where the markup is stored in post meta (deprecrated v2).
+	 *
+	 * @since  1.1.2
+	 * @param  array  $attributes Block attributes.
+	 * @param  string $content    Block inner content.
+	 * @return string Markup.
+	 * @access public
+	 */
+	private function render_book_review_deprecated_v2( $attributes, $content ) {
+		$title = $this->get_post_meta( 'book_review_title' );
+		$cover_url = $this->get_post_meta( 'book_review_cover_url' );
+		$series = $this->get_post_meta( 'book_review_series' );
+		$author = $this->get_post_meta( 'book_review_author' );
+		$genre = $this->get_post_meta( 'book_review_genre' );
+		$publisher = $this->get_post_meta( 'book_review_publisher' );
+		$release_date = $this->get_post_meta( 'book_review_release_date' );
+		$format = $this->get_post_meta( 'book_review_format' );
+		$pages = $this->get_post_meta( 'book_review_pages' );
+		$source = $this->get_post_meta( 'book_review_source' );
+		$summary = $this->get_post_meta( 'book_review_summary' );
+		$rating_html = array_map( array( $this, 'get_rating_html' ), array( 1, 2, 3, 4, 5 ) );
+
+		if ( isset( $attributes ) && isset( $attributes['backgroundColor'] ) ) {
+			$background_color = $attributes['backgroundColor'];
+		} else {
+			$background_color = '';
+		}
+
+		ob_start();
+		include( 'src/blocks/deprecated/v2/book-review.php' );
+		return ob_get_clean();
 	}
 
 	/**

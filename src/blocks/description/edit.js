@@ -4,7 +4,7 @@
 import { RichText } from '@wordpress/block-editor';
 import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const DescriptionEdit = ( { attributes, setAttributes } ) => {

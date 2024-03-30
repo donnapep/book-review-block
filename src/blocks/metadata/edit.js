@@ -5,7 +5,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { InspectorControls, RichText } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from '@wordpress/components';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const MetadataEdit = ( { attributes, setAttributes } ) => {
@@ -46,7 +46,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 	}
 
 	return (
-		<Fragment>
+		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Content', 'book-review-block' ) }>
 					<ToggleControl
@@ -238,7 +238,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 						value={ source } />
 				</div>
 			</div>
-		</Fragment>
+		</>
 	);
 };
 

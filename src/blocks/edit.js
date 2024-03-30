@@ -13,7 +13,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { dateI18n } from '@wordpress/date';
 import { InnerBlocks, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { Fragment, useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 
@@ -31,6 +31,18 @@ const template = [
 	[ 'book-review-block/rating' ],
 	[ 'book-review-block/description' ],
 ];
+
+const apiKeyHelperText = (
+	<>
+		<ExternalLink href="https://console.developers.google.com/flows/enableapi?apiid=books.googleapis.com&keyType=CLIENT_SIDE&reusekey=true">
+			{ __( 'Get an API key.', 'book-review-block' ) }
+		</ExternalLink>
+		{ __(
+			'Note that changing the API key affects all Book Review blocks.',
+			'book-review-block'
+		) }
+	</>
+);
 
 function BookReviewBlock( {
 	attributes,
@@ -56,22 +68,12 @@ function BookReviewBlock( {
 	const [ apiKeySaveError, setApiKeySaveError ] = useState( '' );
 	const [ apiKey, setApiKey ] = useState( '' );
 	const [ siteFormat ] = useEntityProp( 'root', 'site', 'date_format' );
+
 	const settings = useSelect( ( select ) => select( 'core' ).getEntityRecord(
 		'book-review-block/v1',
 		'settings',
 		undefined
 	), [] );
-	const apiKeyHelperText = (
-		<Fragment>
-			<ExternalLink href="https://console.developers.google.com/flows/enableapi?apiid=books.googleapis.com&keyType=CLIENT_SIDE&reusekey=true">
-				{ __( 'Get an API key.', 'book-review-block' ) }
-			</ExternalLink>
-			{ __(
-				'Note that changing the API key affects all Book Review blocks.',
-				'book-review-block'
-			) }
-		</Fragment>
-	);
 
 	// Check for book data in post meta.
 	const postType = useSelect( ( select ) => select( 'core/editor' ).getCurrentPostType(), [] );

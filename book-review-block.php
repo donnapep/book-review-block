@@ -210,7 +210,7 @@ class Book_Review_Block {
 		}
 
 		ob_start();
-		include( 'src/blocks/deprecated/v2/book-review.php' );
+		include( 'src/blocks/deprecated/book-review.php' );
 		return ob_get_clean();
 	}
 

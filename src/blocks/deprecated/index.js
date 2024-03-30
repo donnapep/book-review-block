@@ -9,6 +9,7 @@ import { pick } from 'lodash';
  */
 import { createBlock } from '@wordpress/blocks';
 
+/* Made the block work with the old Book Review plugin, which stored data in post meta. */
 const v2 = {
 	attributes: {
 		alt: {
@@ -129,6 +130,7 @@ const v2 = {
 	},
 };
 
+/* Original static version of the block. */
 const v1 = {
 	attributes: {
 		alt: {

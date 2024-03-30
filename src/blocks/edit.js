@@ -219,73 +219,77 @@ function BookReviewBlock( {
 						] }
 					/>
 
-					<PanelBody title={ __( 'ISBN', 'book-review-block' ) } initialOpen={ false }>
-						{ bookNotFound && (
-							<Notice
-								className="book-review-block__sidebar-notice"
-								status="error"
-								isDismissible={ false }
-							>
-								{ __( 'A book with that ISBN was not found.', 'book-review-block' ) }
-							</Notice>
-						) }
+					{ settings && (
+						<>
+							<PanelBody title={ __( 'ISBN', 'book-review-block' ) } initialOpen={ false }>
+								{ bookNotFound && (
+									<Notice
+										className="book-review-block__sidebar-notice"
+										status="error"
+										isDismissible={ false }
+									>
+										{ __( 'A book with that ISBN was not found.', 'book-review-block' ) }
+									</Notice>
+								) }
 
-						{ booksApiError && (
-							<Notice
-								className="book-review-block__sidebar-notice"
-								status="error"
-								isDismissible={ false }
-							>
-								{ __( booksApiError, 'book-review-block' ) }
-							</Notice>
-						) }
+								{ booksApiError && (
+									<Notice
+										className="book-review-block__sidebar-notice"
+										status="error"
+										isDismissible={ false }
+									>
+										{ __( booksApiError, 'book-review-block' ) }
+									</Notice>
+								) }
 
-						<TextControl
-							help={ __( 'Enter the ISBN to automatically fill in the book details. You will need to have an API key first.', 'book-review-block' ) }
-							placeholder={ __( 'ISBN', 'book-review-block' ) }
-							value={ isbn ? isbn : '' }
-							onChange={ newISBN => setAttributes( { isbn: newISBN } ) }
-						/>
-						<div>
-							<Button
-								isSecondary
-								disabled={ ! isbn || ! apiKey }
-								onClick={ getBookDetails }>
-								{ __( 'Get Book Details', 'book-review-block' ) }
-							</Button>
+								<TextControl
+									help={ __( 'Enter the ISBN to automatically fill in the book details. You will need to have an API key first.', 'book-review-block' ) }
+									placeholder={ __( 'ISBN', 'book-review-block' ) }
+									value={ isbn ? isbn : '' }
+									onChange={ newISBN => setAttributes( { isbn: newISBN } ) }
+								/>
+								<div>
+									<Button
+										isSecondary
+										disabled={ ! isbn || ! apiKey }
+										onClick={ getBookDetails }>
+										{ __( 'Get Book Details', 'book-review-block' ) }
+									</Button>
 
-							{ isFetching && <Spinner /> }
-						</div>
-					</PanelBody>
+									{ isFetching && <Spinner /> }
+								</div>
+							</PanelBody>
 
-					<PanelBody title={ __( 'API Key', 'book-review-block' ) } initialOpen={ false }>
-						{ apiKeySaveError && (
-							<Notice
-								className="book-review-block__sidebar-notice"
-								status="error"
-								isDismissible={ false }
-							>
-								{ __( apiKeySaveError, 'book-review-block' ) }
-							</Notice>
-						) }
+							<PanelBody title={ __( 'API Key', 'book-review-block' ) } initialOpen={ false }>
+								{ apiKeySaveError && (
+									<Notice
+										className="book-review-block__sidebar-notice"
+										status="error"
+										isDismissible={ false }
+									>
+										{ __( apiKeySaveError, 'book-review-block' ) }
+									</Notice>
+								) }
 
-						<TextControl
-							help={ apiKeyHelperText }
-							placeholder={ __( 'API Key', 'book-review-block' ) }
-							value={ apiKey }
-							onChange={ updateApiKeyValue }
-						/>
-						<div>
-							<Button
-								isSecondary
-								disabled={ ! apiKey }
-								onClick={ updateAPIKey }>
-								{ __( 'Save API Key', 'book-review-block' ) }
-							</Button>
+								<TextControl
+									help={ apiKeyHelperText }
+									placeholder={ __( 'API Key', 'book-review-block' ) }
+									value={ apiKey }
+									onChange={ updateApiKeyValue }
+								/>
+								<div>
+									<Button
+										isSecondary
+										disabled={ ! apiKey }
+										onClick={ updateAPIKey }>
+										{ __( 'Save API Key', 'book-review-block' ) }
+									</Button>
 
-							{ isUpdating && <Spinner /> }
-						</div>
-					</PanelBody>
+									{ isUpdating && <Spinner /> }
+								</div>
+							</PanelBody>
+						</>
+					) }
 				</InspectorControls>
 			) }
 

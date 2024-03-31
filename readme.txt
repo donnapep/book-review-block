@@ -1,6 +1,6 @@
 === Book Review Block ===
 Contributors: donnapep
-Tags: block, book, book blog, book review, rating, review
+Tags: book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.7
 Tested up to: 6.5

@@ -3,7 +3,7 @@ Contributors: donnapep
 Tags: block, book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.7
-Tested up to: 6.1
+Tested up to: 6.5
 Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

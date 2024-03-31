@@ -4,7 +4,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import { Fragment, useEffect } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { ENTER } from '@wordpress/keycodes';
 import { range } from 'lodash';
 
@@ -61,7 +61,7 @@ const RatingEdit = ( {
 	};
 
 	return (
-		<Fragment>
+		<>
 			<div className="book-review-block__rating book-review-block__review-rating">
 				<div className="book-review-block__rating-buttons">
 					{ range( 1, 6 ).map( position => (
@@ -78,7 +78,7 @@ const RatingEdit = ( {
 					) ) }
 				</div>
 			</div>
-		</Fragment>
+		</>
 	);
 }
 

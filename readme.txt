@@ -4,7 +4,7 @@ Tags: block, book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
 Requires at least: 5.7
 Tested up to: 6.1
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,10 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 2. Selected State
 
 == Changelog ==
+
+= 2.2.0 =
+* Tweak: Hide label if associated field is empty
+* Fix: Hide ISBN and API Key settings if user doesn't have manage_options capability
 
 = 2.1.2 =
 * Fix: Book cover alignment on block themes

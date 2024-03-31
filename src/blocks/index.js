@@ -10,8 +10,7 @@ import { __ } from '@wordpress/i18n';
  */
 import './editor.scss';
 import './style.scss';
-import deprecatedV1 from './deprecated/v1';
-import deprecatedV2 from './deprecated/v2';
+import deprecated from './deprecated';
 import icon from './icon';
 import metadata from './block.json';
 import edit from './edit';
@@ -87,5 +86,5 @@ registerBlockType( name, {
 	},
 	edit,
 	save,
-	deprecated: [ deprecatedV1, deprecatedV2 ],
+	deprecated,
 } );

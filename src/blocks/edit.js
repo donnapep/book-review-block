@@ -13,7 +13,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { dateI18n } from '@wordpress/date';
 import { InnerBlocks, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { Fragment, useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 
@@ -31,6 +31,18 @@ const template = [
 	[ 'book-review-block/rating' ],
 	[ 'book-review-block/description' ],
 ];
+
+const apiKeyHelperText = (
+	<>
+		<ExternalLink href="https://console.developers.google.com/flows/enableapi?apiid=books.googleapis.com&keyType=CLIENT_SIDE&reusekey=true">
+			{ __( 'Get an API key.', 'book-review-block' ) }
+		</ExternalLink>
+		{ __(
+			'Note that changing the API key affects all Book Review blocks.',
+			'book-review-block'
+		) }
+	</>
+);
 
 function BookReviewBlock( {
 	attributes,
@@ -56,22 +68,12 @@ function BookReviewBlock( {
 	const [ apiKeySaveError, setApiKeySaveError ] = useState( '' );
 	const [ apiKey, setApiKey ] = useState( '' );
 	const [ siteFormat ] = useEntityProp( 'root', 'site', 'date_format' );
+
 	const settings = useSelect( ( select ) => select( 'core' ).getEntityRecord(
 		'book-review-block/v1',
 		'settings',
 		undefined
 	), [] );
-	const apiKeyHelperText = (
-		<Fragment>
-			<ExternalLink href="https://console.developers.google.com/flows/enableapi?apiid=books.googleapis.com&keyType=CLIENT_SIDE&reusekey=true">
-				{ __( 'Get an API key.', 'book-review-block' ) }
-			</ExternalLink>
-			{ __(
-				'Note that changing the API key affects all Book Review blocks.',
-				'book-review-block'
-			) }
-		</Fragment>
-	);
 
 	// Check for book data in post meta.
 	const postType = useSelect( ( select ) => select( 'core/editor' ).getCurrentPostType(), [] );
@@ -219,73 +221,77 @@ function BookReviewBlock( {
 						] }
 					/>
 
-					<PanelBody title={ __( 'ISBN', 'book-review-block' ) } initialOpen={ false }>
-						{ bookNotFound && (
-							<Notice
-								className="book-review-block__sidebar-notice"
-								status="error"
-								isDismissible={ false }
-							>
-								{ __( 'A book with that ISBN was not found.', 'book-review-block' ) }
-							</Notice>
-						) }
+					{ settings && (
+						<>
+							<PanelBody title={ __( 'ISBN', 'book-review-block' ) } initialOpen={ false }>
+								{ bookNotFound && (
+									<Notice
+										className="book-review-block__sidebar-notice"
+										status="error"
+										isDismissible={ false }
+									>
+										{ __( 'A book with that ISBN was not found.', 'book-review-block' ) }
+									</Notice>
+								) }
 
-						{ booksApiError && (
-							<Notice
-								className="book-review-block__sidebar-notice"
-								status="error"
-								isDismissible={ false }
-							>
-								{ __( booksApiError, 'book-review-block' ) }
-							</Notice>
-						) }
+								{ booksApiError && (
+									<Notice
+										className="book-review-block__sidebar-notice"
+										status="error"
+										isDismissible={ false }
+									>
+										{ __( booksApiError, 'book-review-block' ) }
+									</Notice>
+								) }
 
-						<TextControl
-							help={ __( 'Enter the ISBN to automatically fill in the book details. You will need to have an API key first.', 'book-review-block' ) }
-							placeholder={ __( 'ISBN', 'book-review-block' ) }
-							value={ isbn ? isbn : '' }
-							onChange={ newISBN => setAttributes( { isbn: newISBN } ) }
-						/>
-						<div>
-							<Button
-								isSecondary
-								disabled={ ! isbn || ! apiKey }
-								onClick={ getBookDetails }>
-								{ __( 'Get Book Details', 'book-review-block' ) }
-							</Button>
+								<TextControl
+									help={ __( 'Enter the ISBN to automatically fill in the book details. You will need to have an API key first.', 'book-review-block' ) }
+									placeholder={ __( 'ISBN', 'book-review-block' ) }
+									value={ isbn ? isbn : '' }
+									onChange={ newISBN => setAttributes( { isbn: newISBN } ) }
+								/>
+								<div>
+									<Button
+										isSecondary
+										disabled={ ! isbn || ! apiKey }
+										onClick={ getBookDetails }>
+										{ __( 'Get Book Details', 'book-review-block' ) }
+									</Button>
 
-							{ isFetching && <Spinner /> }
-						</div>
-					</PanelBody>
+									{ isFetching && <Spinner /> }
+								</div>
+							</PanelBody>
 
-					<PanelBody title={ __( 'API Key', 'book-review-block' ) } initialOpen={ false }>
-						{ apiKeySaveError && (
-							<Notice
-								className="book-review-block__sidebar-notice"
-								status="error"
-								isDismissible={ false }
-							>
-								{ __( apiKeySaveError, 'book-review-block' ) }
-							</Notice>
-						) }
+							<PanelBody title={ __( 'API Key', 'book-review-block' ) } initialOpen={ false }>
+								{ apiKeySaveError && (
+									<Notice
+										className="book-review-block__sidebar-notice"
+										status="error"
+										isDismissible={ false }
+									>
+										{ __( apiKeySaveError, 'book-review-block' ) }
+									</Notice>
+								) }
 
-						<TextControl
-							help={ apiKeyHelperText }
-							placeholder={ __( 'API Key', 'book-review-block' ) }
-							value={ apiKey }
-							onChange={ updateApiKeyValue }
-						/>
-						<div>
-							<Button
-								isSecondary
-								disabled={ ! apiKey }
-								onClick={ updateAPIKey }>
-								{ __( 'Save API Key', 'book-review-block' ) }
-							</Button>
+								<TextControl
+									help={ apiKeyHelperText }
+									placeholder={ __( 'API Key', 'book-review-block' ) }
+									value={ apiKey }
+									onChange={ updateApiKeyValue }
+								/>
+								<div>
+									<Button
+										isSecondary
+										disabled={ ! apiKey }
+										onClick={ updateAPIKey }>
+										{ __( 'Save API Key', 'book-review-block' ) }
+									</Button>
 
-							{ isUpdating && <Spinner /> }
-						</div>
-					</PanelBody>
+									{ isUpdating && <Spinner /> }
+								</div>
+							</PanelBody>
+						</>
+					) }
 				</InspectorControls>
 			) }
 

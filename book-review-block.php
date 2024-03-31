@@ -5,7 +5,7 @@
  * Description: A Gutenberg block to add book details and a star rating to a book review post.
  * Author: Donna Peplinskie
  * Author URI: https://donnapeplinskie.com
- * Version: 2.1.2
+ * Version: 2.2.0
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -67,7 +67,7 @@ class Book_Review_Block {
 	 * @access   private
 	 */
 	private function __construct() {
-		$this->version = '2.1.2';
+		$this->version = '2.2.0';
 		$this->slug    = 'book-review-block';
 
 		require_once plugin_dir_path( __FILE__ ) . 'includes/book-review-block-settings-controller.php';
@@ -134,7 +134,7 @@ class Book_Review_Block {
 	}
 
 	/**
-	 * Renders the book review block.
+	 * Renders the block where the markup is stored in post content (i.e. deprecated v1 and current version).
 	 *
 	 * @since  1.1.2
 	 * @param  array  $attributes Block attributes.
@@ -143,7 +143,6 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function render_book_review( $attributes, $content ) {
-		// Markup for the block is stored in post content (i.e. deprecated v1 and current version).
 		if ( ! empty( $content ) ) {
 			$img_element = '<img ';
 			$img_position = strpos( $content, $img_element );
@@ -176,31 +175,43 @@ class Book_Review_Block {
 			return $content;
 		}
 
-		// Markup for the block is stored in post meta (i.e. deprecated v2).
 		if ( in_the_loop() ) {
-			$title = $this->get_post_meta( 'book_review_title' );
-			$cover_url = $this->get_post_meta( 'book_review_cover_url' );
-			$series = $this->get_post_meta( 'book_review_series' );
-			$author = $this->get_post_meta( 'book_review_author' );
-			$genre = $this->get_post_meta( 'book_review_genre' );
-			$publisher = $this->get_post_meta( 'book_review_publisher' );
-			$release_date = $this->get_post_meta( 'book_review_release_date' );
-			$format = $this->get_post_meta( 'book_review_format' );
-			$pages = $this->get_post_meta( 'book_review_pages' );
-			$source = $this->get_post_meta( 'book_review_source' );
-			$summary = $this->get_post_meta( 'book_review_summary' );
-			$rating_html = array_map( array( $this, 'get_rating_html' ), array( 1, 2, 3, 4, 5 ) );
-
-			if ( isset( $attributes ) && isset( $attributes['backgroundColor'] ) ) {
-				$background_color = $attributes['backgroundColor'];
-			} else {
-				$background_color = '';
-			}
-
-			ob_start();
-			include( 'src/blocks/deprecated/v2/book-review.php' );
-			return ob_get_clean();
+			return $this->render_book_review_deprecated_v2( $attributes, $content );
 		}
+	}
+
+	/**
+	 * Renders the block where the markup is stored in post meta (deprecrated v2).
+	 *
+	 * @since  1.1.2
+	 * @param  array  $attributes Block attributes.
+	 * @param  string $content    Block inner content.
+	 * @return string Markup.
+	 * @access public
+	 */
+	private function render_book_review_deprecated_v2( $attributes, $content ) {
+		$title = $this->get_post_meta( 'book_review_title' );
+		$cover_url = $this->get_post_meta( 'book_review_cover_url' );
+		$series = $this->get_post_meta( 'book_review_series' );
+		$author = $this->get_post_meta( 'book_review_author' );
+		$genre = $this->get_post_meta( 'book_review_genre' );
+		$publisher = $this->get_post_meta( 'book_review_publisher' );
+		$release_date = $this->get_post_meta( 'book_review_release_date' );
+		$format = $this->get_post_meta( 'book_review_format' );
+		$pages = $this->get_post_meta( 'book_review_pages' );
+		$source = $this->get_post_meta( 'book_review_source' );
+		$summary = $this->get_post_meta( 'book_review_summary' );
+		$rating_html = array_map( array( $this, 'get_rating_html' ), array( 1, 2, 3, 4, 5 ) );
+
+		if ( isset( $attributes ) && isset( $attributes['backgroundColor'] ) ) {
+			$background_color = $attributes['backgroundColor'];
+		} else {
+			$background_color = '';
+		}
+
+		ob_start();
+		include( 'src/blocks/deprecated/book-review.php' );
+		return ob_get_clean();
 	}
 
 	/**

@@ -52,7 +52,7 @@ class Book_Review_Block {
 	 *
 	 * @since    2.2.1
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string    $controller    Property to access the REST API.
 	 */
 	private $controller;
 

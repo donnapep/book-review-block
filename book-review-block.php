@@ -48,6 +48,15 @@ class Book_Review_Block {
 	private $version;
 
 	/**
+	 * Controller to communicate with the REST API.
+	 *
+	 * @since    2.2.1
+	 * @access   private
+	 * @var      string    $version    The current version of this plugin.
+	 */
+	private $controller;
+
+	/**
 	 * Registers the plugin.
 	 *
 	 * @since     1.0.0

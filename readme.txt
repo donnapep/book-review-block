@@ -2,9 +2,9 @@
 Contributors: donnapep
 Tags: book, book blog, book review, rating, review
 Author URI: https://donnapeplinskie.com
-Requires at least: 5.7
-Tested up to: 6.5
-Stable tag: 2.2.0
+Requires at least: 6.0
+Tested up to: 6.6
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,9 @@ Book Review Block adds Schema markup to the HTML. This can help increase site tr
 2. Selected State
 
 == Changelog ==
+
+= 2.2.1 =
+* Fix: "Creation of dynamic property" deprecation notice in PHP 8.2+
 
 = 2.2.0 =
 * Tweak: Hide label if associated field is empty

@@ -1,8 +1,7 @@
 /**
- * External dependencies
+ * WordPress dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies

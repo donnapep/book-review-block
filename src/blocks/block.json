@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "book-review-block/book-review",
 	"title": "Book Review",
 	"description": "Add details such as title, author, cover image, star rating and more to your book reviews.",

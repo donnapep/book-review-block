@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "book-review-block/metadata",
 	"title": "Metadata",
 	"description": "Add book details such as title and author.",

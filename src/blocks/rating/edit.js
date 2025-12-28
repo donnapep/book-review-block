@@ -2,6 +2,7 @@
  * External dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
+import { useBlockProps } from '@wordpress/block-editor';
 import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
@@ -36,6 +37,9 @@ const RatingEdit = ( {
 	attributes,
 	setAttributes,
 } ) => {
+	const blockProps = useBlockProps( {
+		className: 'book-review-block__rating book-review-block__review-rating',
+	} );
 	const { rating } = attributes;
 	// Workaround for https://github.com/WordPress/gutenberg/issues/27181.
 	const postType = useSelect( ( select ) => select( 'core/editor' ).getCurrentPostType(), [] );
@@ -61,24 +65,22 @@ const RatingEdit = ( {
 	};
 
 	return (
-		<>
-			<div className="book-review-block__rating book-review-block__review-rating">
-				<div className="book-review-block__rating-buttons">
-					{ range( 1, 6 ).map( position => (
-						<RatingButton key={ position } id={ position } setRating={ setNewRating }>
-							<span>
-								<StarIcon className={ rating >= position - 0.5 ? null : 'is-rating-unfilled' }
-								/>
-							</span>
-							<span>
-								<StarIcon className={ rating >= position ? null : 'is-rating-unfilled' }
-								/>
-							</span>
-						</RatingButton>
-					) ) }
-				</div>
+		<div { ...blockProps }>
+			<div className="book-review-block__rating-buttons">
+				{ range( 1, 6 ).map( position => (
+					<RatingButton key={ position } id={ position } setRating={ setNewRating }>
+						<span>
+							<StarIcon className={ rating >= position - 0.5 ? null : 'is-rating-unfilled' }
+							/>
+						</span>
+						<span>
+							<StarIcon className={ rating >= position ? null : 'is-rating-unfilled' }
+							/>
+						</span>
+					</RatingButton>
+				) ) }
 			</div>
-		</>
+		</div>
 	);
 }
 

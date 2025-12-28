@@ -1,25 +1,27 @@
 /**
  * External dependencies
  */
+import { useBlockProps } from '@wordpress/block-editor';
 import { range } from 'lodash';
 
 const RatingSave = ( { attributes } ) => {
+	const blockProps = useBlockProps.save( {
+		itemScope: true,
+		itemType: 'https://schema.org/Review',
+		itemProp: 'review',
+	} );
 	const { rating } = attributes;
 
 	return (
-		<div
-			itemscope
-			itemtype="https://schema.org/Review"
-			itemprop="review"
-		>
+		<div { ...blockProps }>
 			<div
-				itemscope
-				itemtype="https://schema.org/Rating"
-				itemprop="reviewRating"
+				itemScope
+				itemType="https://schema.org/Rating"
+				itemProp="reviewRating"
 				className="book-review-block__rating book-review-block__review-rating"
 			>
 				<meta
-					itemprop="ratingValue"
+					itemProp="ratingValue"
 					content={ rating }
 				/>
 

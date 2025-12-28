@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "book-review-block/rating",
 	"title": "Rating",
 	"description": "Add a star rating.",

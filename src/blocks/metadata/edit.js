@@ -3,12 +3,15 @@
  */
 import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import { InspectorControls, RichText } from '@wordpress/block-editor';
+import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const MetadataEdit = ( { attributes, setAttributes } ) => {
+	const blockProps = useBlockProps( {
+		className: 'book-review-block__meta',
+	} );
 	const {
 		author,
 		format,
@@ -66,7 +69,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 				</PanelBody>
 			</InspectorControls>
 
-			<div className="book-review-block__meta">
+			<div { ...blockProps }>
 				<div className="book-review-block__meta-item book-review-block__meta-item-title">
 					{ showLabels && (
 						<span className="book-review-block__meta-item-label">

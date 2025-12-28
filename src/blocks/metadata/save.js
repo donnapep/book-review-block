@@ -2,9 +2,12 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 const MetadataSave = ( { attributes } ) => {
+	const blockProps = useBlockProps.save( {
+		className: 'book-review-block__meta',
+	} );
 	const {
 		author,
 		format,
@@ -19,7 +22,7 @@ const MetadataSave = ( { attributes } ) => {
 	} = attributes;
 
 	return (
-		<div className="book-review-block__meta">
+		<div { ...blockProps }>
 			{ title && (
 				<div className="book-review-block__meta-item book-review-block__meta-item-title">
 					{ showLabels && (

@@ -9,7 +9,7 @@
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Requires at least: 6.0
+ * Requires at least: 6.2
  * Tested up to: 6.6
  * Requires PHP: 7.4
  */
@@ -153,33 +153,7 @@ class Book_Review_Block {
 	 */
 	public function render_book_review( $attributes, $content ) {
 		if ( ! empty( $content ) ) {
-			$img_element = '<img ';
-			$img_position = strpos( $content, $img_element );
-
-			// Add schema.org markup to first image element.
-			if ( $img_position ) {
-				$content = substr_replace(
-					$content,
-					'itemprop="image" ',
-					$img_position + strlen( $img_element ),
-					0
-				);
-			}
-
-			$review_rating_element = '<div itemscope itemtype="https://schema.org/Rating" itemprop="reviewRating"';
-			$review_rating_element_position = strpos( $content, $review_rating_element );
-
-			// Add schema.org markup for the author of the review.
-			if ( $review_rating_element_position ) {
-				$content = substr_replace(
-					$content,
-					'<span itemscope itemtype="https://schema.org/Person" itemprop="author">' .
-						'<meta itemprop="name" content="' . esc_attr( get_the_author() ) . '"/>' .
-					'</span>',
-					$review_rating_element_position,
-					0
-				);
-			}
+			$content = $this->add_schema_markup( $content );
 
 			return $content;
 		}
@@ -187,6 +161,43 @@ class Book_Review_Block {
 		if ( in_the_loop() ) {
 			return $this->render_book_review_deprecated_v2( $attributes, $content );
 		}
+	}
+
+	/**
+	 * Adds schema.org markup to the block content using WP_HTML_Tag_Processor.
+	 *
+	 * @since  2.3.0
+	 * @param  string $content Block content.
+	 * @return string Modified content with schema.org markup.
+	 * @access private
+	 */
+	private function add_schema_markup( $content ) {
+		$processor = new WP_HTML_Tag_Processor( $content );
+
+		// Add itemprop="image" to the first img element.
+		if ( $processor->next_tag( 'img' ) ) {
+			$processor->set_attribute( 'itemprop', 'image' );
+		}
+
+		$content = $processor->get_updated_html();
+
+		// Add schema.org markup for the author of the review.
+		$author_markup = sprintf(
+			'<span itemscope itemtype="https://schema.org/Person" itemprop="author">' .
+				'<meta itemprop="name" content="%s"/>' .
+			'</span>',
+			esc_attr( get_the_author() )
+		);
+
+		// Insert author markup right after the Review container opening tag.
+		$content = preg_replace(
+			'/(<div\s[^>]*itemtype="https:\/\/schema\.org\/Review"[^>]*>)/i',
+			'$1' . $author_markup,
+			$content,
+			1 // Only replace the first occurrence.
+		);
+
+		return $content;
 	}
 
 	/**

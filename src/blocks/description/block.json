@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "book-review-block/description",
 	"title": "Description",
 	"description": "Add a brief description of the book.",
@@ -11,8 +13,7 @@
 		"summary": {
 			"type": "string",
 			"source": "html",
-			"selector": ".book-review-block__description",
-			"multiline": "p"
+			"selector": ".book-review-block__description"
 		}
 	},
 	"editorScript": "file:../../../build/index.js",

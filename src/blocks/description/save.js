@@ -1,19 +1,21 @@
 /**
- * External dependencies
+ * WordPress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 const DescriptionSave = ( { attributes } ) => {
+	const blockProps = useBlockProps.save( {
+		className: 'book-review-block__description',
+	} );
 	const { summary } = attributes;
 
 	return (
-		<div className="book-review-block__description">
-			<RichText.Content
-				multiline="p"
-				value={ summary }
-			/>
-		</div>
+		<RichText.Content
+			{ ...blockProps }
+			tagName="div"
+			value={ summary }
+		/>
 	);
-}
+};
 
 export default DescriptionSave;

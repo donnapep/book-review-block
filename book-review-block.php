@@ -9,7 +9,7 @@
  * Text Domain: book-review-block
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Requires at least: 6.0
+ * Requires at least: 6.2
  * Tested up to: 6.6
  * Requires PHP: 7.4
  */

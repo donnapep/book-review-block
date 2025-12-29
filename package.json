@@ -17,7 +17,7 @@
     "@wordpress/element": "5.35.0",
     "@wordpress/i18n": "4.58.0",
     "@wordpress/keycodes": "3.58.0",
-    "classnames": "2.3.2",
+    "classnames": "2.5.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {

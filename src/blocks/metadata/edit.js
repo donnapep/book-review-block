@@ -53,6 +53,7 @@ const MetadataEdit = ( { attributes, setAttributes } ) => {
 			<InspectorControls>
 				<PanelBody title={ __( 'Content', 'book-review-block' ) }>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __(
 							'Show labels',
 							'book-review-block'

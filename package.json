@@ -4,7 +4,7 @@
   "main": "index.js",
   "engines": {
     "node": ">=14.0.0",
-    "npm": ">=6.9.0 <7"
+    "npm": ">=6.9.0 <12"
   },
   "dependencies": {
     "@wordpress/api-fetch": "6.26.0",

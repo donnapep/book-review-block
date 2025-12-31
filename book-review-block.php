@@ -119,13 +119,12 @@ class Book_Review_Block {
 			$asset_file['version']
 		);
 
-		// Register block.
-		register_block_type( 'book-review-block/book-review', array(
-			'editor_script' => $this->slug,
-			'editor_style'  => $this->slug . '-editor',
-			'style' => $this->slug,
-			'render_callback' => array( $this, 'render_book_review' ),
-		) );
+		register_block_type(
+			plugin_dir_path( __FILE__ ) . 'build/blocks',
+			array(
+				'render_callback' => array( $this, 'render_book_review' ),
+			)
+		);
 
 		$this->register_meta_field( 'book_review_cover_url' );
 		$this->register_meta_field( 'book_review_title' );

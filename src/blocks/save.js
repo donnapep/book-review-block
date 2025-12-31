@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
 import classnames from 'classnames';
 
 const save = ( { attributes } ) => {
@@ -18,15 +18,12 @@ const save = ( { attributes } ) => {
 		itemType: 'https://schema.org/Book',
 	} );
 
+	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
+
 	return (
-		<div { ...blockProps }>
-			{ isbn && (
-				<meta
-					itemProp="isbn"
-					content={ isbn }
-				/>
-			) }
-			<InnerBlocks.Content />
+		<div { ...innerBlocksProps }>
+			{ isbn && <meta itemProp="isbn" content={ isbn } /> }
+			{ innerBlocksProps.children }
 		</div>
 	);
 }

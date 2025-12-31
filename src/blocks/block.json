@@ -15,6 +15,52 @@
 			"type": "string"
 		}
 	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"layout": {
+			"default": {
+				"type": "default"
+			}
+		}
+	},
+	"example": {
+		"innerBlocks": [
+			{
+				"name": "core/image",
+				"attributes": {
+					"align": "left",
+					"height": 300,
+					"url": "http://books.google.com/books/content?id=sJdUAzLUNyAC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+				}
+			},
+			{
+				"name": "book-review-block/metadata",
+				"attributes": {
+					"author": "Suzanne Collins",
+					"format": "Hardcover",
+					"genre": "Young Adult",
+					"pages": "374",
+					"publisher": "Scholastic Press",
+					"releaseDate": "September 14, 2008",
+					"series": "The Hunger Games #1",
+					"source": " ",
+					"title": "The Hunger Games"
+				}
+			},
+			{
+				"name": "book-review-block/rating",
+				"attributes": {
+					"rating": 4.5
+				}
+			},
+			{
+				"name": "book-review-block/description",
+				"attributes": {
+					"summary": "<p>In a future North America, where the rulers of Panem maintain control through an annual televised survival competition pitting young people from each of the twelve districts against one another, sixteen-year-old Katniss's skills are put to the test when she voluntarily takes her younger sister's place.</p>"
+				}
+			}
+		]
+	},
 	"editorScript": "file:../../build/index.js",
 	"editorStyle": "file:../../build/index.css",
 	"style": "file:../../build/style-index.css"

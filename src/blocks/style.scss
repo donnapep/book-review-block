@@ -6,34 +6,6 @@
 	&.has-background {
 		padding: 20px 20px;
 	}
-
-	.wp-block-image {
-		margin: 0;
-
-		/* For some reason, block themes don't have a wrapper div around the figure element, so we
-		 need to account for that in CSS. */
-		.alignleft, &.alignleft,
-		.alignright, &.alignright {
-			margin: 0;
-			margin-bottom: 1em;
-		}
-
-		.alignleft, &.alignleft {
-			float: left;
-			margin-right: 1em;
-		}
-
-		.alignright, &.alignright {
-			float: right;
-			margin-left: 1em;
-		}
-
-		.aligncenter, &.aligncenter {
-			margin-left: auto;
-			margin-right: auto;
-			margin-bottom: 1em;
-		}
-	}
 }
 
 /**

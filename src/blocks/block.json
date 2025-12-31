@@ -19,7 +19,7 @@
 		"align": [ "wide", "full" ],
 		"layout": {
 			"default": {
-				"type": "constrained"
+				"type": "default"
 			}
 		}
 	},

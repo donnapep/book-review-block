@@ -12,7 +12,7 @@ import {
 import { useEntityProp } from '@wordpress/core-data';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { dateI18n } from '@wordpress/date';
-import { InnerBlocks, InspectorControls, PanelColorSettings, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, PanelColorSettings, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
@@ -60,6 +60,10 @@ function BookReviewBlock( {
 			'has-background': backgroundColor,
 		} ),
 		style: { backgroundColor },
+	} );
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		allowedBlocks,
+		template,
 	} );
 
 	// Google Books API
@@ -207,8 +211,7 @@ function BookReviewBlock( {
 	const updateValue = field => value => setAttributes( { [ field ]: value } );
 
 	return (
-		<div { ...blockProps }>
-
+		<>
 			{ isSelected && (
 				<InspectorControls key="inspector">
 					<PanelColorSettings
@@ -295,11 +298,8 @@ function BookReviewBlock( {
 				</InspectorControls>
 			) }
 
-			<InnerBlocks
-				allowedBlocks={ allowedBlocks }
-				template={ template }
-			/>
-		</div>
+			<div { ...innerBlocksProps } />
+		</>
 	);
 }
 

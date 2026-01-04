@@ -93,39 +93,15 @@ class Book_Review_Block {
 	 * @access public
 	 */
 	public function init_block() {
-		// Automatically load dependencies and version.
-		$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
-
-		wp_register_script(
-			$this->slug,
-			plugins_url( 'build/index.js', __FILE__ ),
-			$asset_file['dependencies'],
-			$asset_file['version']
+		register_block_type(
+			plugin_dir_path( __FILE__ ) . 'build/blocks',
+			array(
+				'render_callback' => array( $this, 'render_book_review' ),
+			)
 		);
 
-		wp_set_script_translations( $this->slug, 'book-review-block' );
-
-		wp_register_style(
-			$this->slug . '-editor',
-			plugins_url( 'build/index.css', __FILE__ ),
-			array( 'wp-edit-blocks' ),
-			$asset_file['version']
-		);
-
-		wp_register_style(
-			$this->slug,
-			plugins_url( 'build/style-index.css', __FILE__ ),
-			array(),
-			$asset_file['version']
-		);
-
-		// Register block.
-		register_block_type( 'book-review-block/book-review', array(
-			'editor_script' => $this->slug,
-			'editor_style'  => $this->slug . '-editor',
-			'style' => $this->slug,
-			'render_callback' => array( $this, 'render_book_review' ),
-		) );
+		// Set up translations for the block's JavaScript.
+		wp_set_script_translations( 'book-review-block-book-review-editor-script', 'book-review-block' );
 
 		$this->register_meta_field( 'book_review_cover_url' );
 		$this->register_meta_field( 'book_review_title' );

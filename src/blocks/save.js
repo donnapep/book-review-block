@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 
 const save = ( { attributes } ) => {

@@ -8,7 +8,7 @@ import { pick } from 'lodash';
  * WordPress dependencies
  */
 import { createBlock } from '@wordpress/blocks';
-import { RichText } from '@wordpress/block-editor';
+import { renderToString } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -196,8 +196,8 @@ const v1 = {
 			selector: '.book-review-block__source',
 		},
 		summary: {
-			type: 'string',
-			source: 'html',
+			type: 'array',
+			source: 'children',
 			selector: '.book-review-block__description',
 		},
 		title: {
@@ -214,6 +214,8 @@ const v1 = {
 	},
 
 	migrate( attributes ) {
+		const summary = renderToString( attributes.summary );
+
 		return [
 			pick( attributes, [ 'backgroundColor' ] ),
 			[
@@ -236,7 +238,7 @@ const v1 = {
 				createBlock( 'book-review-block/rating', {
 					rating: Number( attributes.rating, 10 ),
 				} ),
-				createBlock( 'book-review-block/description', {}, createDescriptionBlocks( attributes.summary ) ),
+				createBlock( 'book-review-block/description', {}, createDescriptionBlocks( summary ) ),
 			],
 		];
 	},
@@ -254,7 +256,7 @@ const v1 = {
 			releaseDate = [],
 			series = [],
 			source = [],
-			summary = '',
+			summary = [],
 			title = [],
 			url,
 		} = attributes;
@@ -303,13 +305,7 @@ const v1 = {
 						) ) }
 					</div>
 
-					{ summary && (
-						<RichText.Content
-							className="book-review-block__description"
-							tagName="div"
-							value={ summary }
-						/>
-					) }
+					{ summary.length > 0 && <div className="book-review-block__description">{ summary }</div> }
 				</div>
 			</div>
 		);

@@ -10,10 +10,8 @@
 	"keywords": [ "book", "summary", "synopsis" ],
 	"textdomain": "book-review-block",
 	"attributes": {
-		"summary": {
-			"type": "string",
-			"source": "html",
-			"selector": ".book-review-block__description"
+		"needsLegacySummary": {
+			"type": "boolean"
 		}
 	},
 	"editorScript": "file:../../../build/index.js",

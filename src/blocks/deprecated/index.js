@@ -8,6 +8,12 @@ import { pick } from 'lodash';
  * WordPress dependencies
  */
 import { createBlock } from '@wordpress/blocks';
+import { renderToString } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
+import createDescriptionBlocks from '../description/create-description-blocks';
 
 /* Made the block work with the old Book Review plugin, which stored data in post meta. */
 const v2 = {
@@ -93,6 +99,8 @@ const v2 = {
 
 	migrate( attributes, innerBlocks ) {
 		// Because of https://github.com/WordPress/gutenberg/issues/27181, all meta attributes are undefined.
+		const summary = attributes.book_review_summary;
+
 		return [
 			{
 				...pick( attributes, [ 'backgroundColor', 'id' ] ),
@@ -117,9 +125,11 @@ const v2 = {
 				createBlock( 'book-review-block/rating', {
 					rating: attributes.book_review_rating,
 				} ),
-				createBlock( 'book-review-block/description', {
-					summary: attributes.book_review_summary,
-				} ),
+				createBlock(
+					'book-review-block/description',
+					{ needsLegacySummary: ! summary || undefined },
+					createDescriptionBlocks( summary )
+				),
 				...innerBlocks,
 			],
 		];
@@ -204,6 +214,8 @@ const v1 = {
 	},
 
 	migrate( attributes ) {
+		const summary = renderToString( attributes.summary );
+
 		return [
 			pick( attributes, [ 'backgroundColor' ] ),
 			[
@@ -226,9 +238,7 @@ const v1 = {
 				createBlock( 'book-review-block/rating', {
 					rating: Number( attributes.rating, 10 ),
 				} ),
-				createBlock( 'book-review-block/description', {
-					summary: attributes.summary,
-				} ),
+				createBlock( 'book-review-block/description', {}, createDescriptionBlocks( summary ) ),
 			],
 		];
 	},

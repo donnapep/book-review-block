@@ -8,6 +8,12 @@ import { pick } from 'lodash';
  * WordPress dependencies
  */
 import { createBlock } from '@wordpress/blocks';
+import { RichText } from '@wordpress/block-editor';
+
+/**
+ * Internal dependencies
+ */
+import createDescriptionBlocks from '../description/create-description-blocks';
 
 /* Made the block work with the old Book Review plugin, which stored data in post meta. */
 const v2 = {
@@ -93,6 +99,8 @@ const v2 = {
 
 	migrate( attributes, innerBlocks ) {
 		// Because of https://github.com/WordPress/gutenberg/issues/27181, all meta attributes are undefined.
+		const summary = attributes.book_review_summary;
+
 		return [
 			{
 				...pick( attributes, [ 'backgroundColor', 'id' ] ),
@@ -117,9 +125,11 @@ const v2 = {
 				createBlock( 'book-review-block/rating', {
 					rating: attributes.book_review_rating,
 				} ),
-				createBlock( 'book-review-block/description', {
-					summary: attributes.book_review_summary,
-				} ),
+				createBlock(
+					'book-review-block/description',
+					{ needsLegacySummary: ! summary || undefined },
+					createDescriptionBlocks( summary )
+				),
 				...innerBlocks,
 			],
 		];
@@ -186,8 +196,8 @@ const v1 = {
 			selector: '.book-review-block__source',
 		},
 		summary: {
-			type: 'array',
-			source: 'children',
+			type: 'string',
+			source: 'html',
 			selector: '.book-review-block__description',
 		},
 		title: {
@@ -226,9 +236,7 @@ const v1 = {
 				createBlock( 'book-review-block/rating', {
 					rating: Number( attributes.rating, 10 ),
 				} ),
-				createBlock( 'book-review-block/description', {
-					summary: attributes.summary,
-				} ),
+				createBlock( 'book-review-block/description', {}, createDescriptionBlocks( attributes.summary ) ),
 			],
 		];
 	},
@@ -246,7 +254,7 @@ const v1 = {
 			releaseDate = [],
 			series = [],
 			source = [],
-			summary = [],
+			summary = '',
 			title = [],
 			url,
 		} = attributes;
@@ -295,7 +303,13 @@ const v1 = {
 						) ) }
 					</div>
 
-					{ summary.length > 0 && <div className="book-review-block__description">{ summary }</div> }
+					{ summary && (
+						<RichText.Content
+							className="book-review-block__description"
+							tagName="div"
+							value={ summary }
+						/>
+					) }
 				</div>
 			</div>
 		);

@@ -17,6 +17,11 @@ import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 
+/**
+ * Internal dependencies
+ */
+import createDescriptionBlocks from './description/create-description-blocks';
+
 const allowedBlocks = [
 	'core/image',
 	'book-review-block/metadata',
@@ -167,12 +172,9 @@ function BookReviewBlock( {
 								);
 								break;
 							case 'book-review-block/description':
-								dispatch( 'core/block-editor' ).updateBlockAttributes(
+							dispatch( 'core/block-editor' ).replaceInnerBlocks(
 									block.clientId,
-									{
-										// Including <p> tag fixes the issue of the description not showing in the editor.
-										summary: volume.description ? '<p>' + volume.description + '</p>' : '',
-									}
+								createDescriptionBlocks( volume.description )
 								);
 								break;
 						}

@@ -7,6 +7,7 @@ import { registerBlockType } from '@wordpress/blocks';
  * Internal dependencies
  */
 import metadata from './block.json';
+import deprecated from './deprecated';
 import edit from './edit';
 import save from './save';
 
@@ -16,4 +17,5 @@ registerBlockType( name, {
 	...settings,
 	edit,
 	save,
+	deprecated,
 } );
